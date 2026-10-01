@@ -7,30 +7,36 @@ from langchain_core.output_parsers import StrOutputParser
 
 load_dotenv()
 
-# 1. Initialize the LLM (Setting temperature lower for more stable generation)
 llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.7)
 
-# 2. Define the first chain (Restaurant Name)
-# Added StrOutputParser() so the output is plain text, not a complex AI Message object
+# 1. Define Name Chain (Modified to block conversational commentary)
 name_prompt = PromptTemplate.from_template(
-    "I want to open a restaurant for {cuisine} food. Suggest 1 fancy name for it."
+    "I want to open a restaurant for {cuisine} food. Suggest 1 fancy name for it. "
+    "Do not include any quotes, introductory conversational filler, or explanations. "
+    "Output ONLY the name itself."
 )
 name_chain = name_prompt | llm | StrOutputParser()
 
-# 3. Define the second chain (Menu Items)
+# 2. Define Menu Chain 
 menu_prompt = PromptTemplate.from_template(
     "Suggest 5 menu items for a {cuisine} restaurant named {restaurant_name}. "
-    "Make the items fit the cuisine and the restaurant's name and theme."
+    "Make the items fit the cuisine and the restaurant's name and theme. "
+    "Do not include any introductory text, conversational greetings, or polite filler. "
+    "Start your response directly with the list of items."
 )
 menu_chain = menu_prompt | llm | StrOutputParser()
 
-# 4. Construct the Sequential Chain
-# RunnablePassthrough.assign keeps the original 'cuisine' variable and adds 'restaurant_name' to the dictionary
+# 3. Modern Sequential Chain capturing both variables
 full_chain = (
     RunnablePassthrough.assign(restaurant_name=name_chain)
-    | menu_chain
+    | {
+        "restaurant_name": lambda x: x["restaurant_name"],
+        "menu_items": menu_chain
+      }
 )
 
-# 5. Run the sequential chain
+# 4. Run the chain and print the clean format
 response = full_chain.invoke({"cuisine": "Italian"})
-print(response)
+
+print(f"Restaurant Name: {response['restaurant_name']}\n")
+print(f"Menu Items:\n{response['menu_items']}")
