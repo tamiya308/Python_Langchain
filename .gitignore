@@ -1,0 +1,14 @@
+# Environment variables and API keys
+.env
+.env.local
+*.env
+
+# Dependency folders
+node_modules/
+venv/
+.venv/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+commands used.txt
