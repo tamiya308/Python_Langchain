@@ -27,7 +27,7 @@ class LogScanRecord(BaseModel):
     drill_hole_id: Optional[str] = Field(default="Unknown", description="The ID of the drill hole (e.g., DDH-26-01)")
     main_rock_type: str = Field(description="The primary lithology / rock type identified")
     # raw_content: str = Field(description="The original unstructured message content")
-    total_tokens_used: int = Field(default=0, description="Tokens consumed for this specific inference window")
+    # total_tokens_used: int = Field(default=0, description="Tokens consumed for this specific inference window")
 
 # Rebuild schema to safely handle typing references and fix the PydanticUserError crash
 LogScanRecord.model_rebuild()

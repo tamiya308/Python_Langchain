@@ -11,9 +11,7 @@ load_dotenv()
 if __name__ == "__main__":
     my_data = get_all_text_from_qdrant(collection_name="optimized_windows")
 
-    extraction_results = []
     for idx, item in enumerate(my_data):
         print(f"\n[Record #{idx + 1}] Scanning {item.get('source', 'Unknown')}")
-        extraction_results.append(execute_mineral_scan(item))
-
-    print(extraction_results)
+        result = execute_mineral_scan(item)
+        print(json.dumps(result, indent=2))
