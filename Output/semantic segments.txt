@@ -1,0 +1,360 @@
+--- Semantic segment 1 ---
+================================================================================
+DIAMOND CORE DRILL LOG: DDH-26-01
+================================================================================
+Prospect        : Golden Ridge Prospect
+Eastings/Northings: E: 412900.50 | N: 6184100.20
+Elevation       : 345.2m RL
+Azimuth / Dip   : 180 deg / -60 deg
+Core Size       : HQ3 (61.1mm diameter)
+Date Logged     : 2026-10-02
+Logged By       : A. Field-Geologist
+Total Depth     : 25.00 meters
+--------------------------------------------------------------------------------
+
+DEPTH INTERVAL (m)  | ROCK TYPE              | TEXTURE & GRAIN SIZE DESCRIPTION
+--------------------+------------------------+----------------------------------
+0.00 - 3.50         | Clayey SAPROLITE       | Highly weathered, earthy
+                    |                        | texture, completely
+                    |                        | fine-grained. Reddish-brown
+                    |                        | oxidised clay mass with relict
+                    |                        | quartz grains. --------------------------------------------------------------------------------
+3.50 - 14.20        | Quartz-Biotite SCHIST  | Fresh, strongly foliated
+                    |                        | texture, fine-to-medium
+                    |                        | grained. Abundant aligned
+                    |                        | biotite flakes with alternating
+                    |                        | quartz-feldspar bands. --------------------------------------------------------------------------------
+14.20 - 25.00       | META-BASALT            | Fresh, crystalline to
+                    |                        | crystalline-granular texture,
+                    |                        | fine-grained. Dark green,
+                    |                        | highly competent, minor
+                    |                        | chlorite alteration on joint
+                    |                        | planes. EOH.
+
+--- Semantic segment 2 ---
+--------------------------------------------------------------------------------
+================================================================================
+
+   ├─ Extracted 2 semantic segments.
+   ├─ Packed into 1 sliding window prompts.
+   │  └─ Processing window 1/1 (358 tokens)...
+📖 Scanning: drill_hole_ddh_26_02.txt
+
+--- Semantic segment 1 ---
+================================================================================
+DIAMOND CORE DRILL LOG: DDH-26-02
+================================================================================
+Prospect        : Silver Valley Area
+Eastings/Northings: E: 413050.10 | N: 6184250.60
+Elevation       : 332.1m RL
+Azimuth / Dip   : 000 deg / -90 deg
+Core Size       : HQ3 (61.1mm diameter)
+Date Logged     : 2026-10-02
+Logged By       : A. Field-Geologist
+Total Depth     : 30.00 meters
+--------------------------------------------------------------------------------
+
+DEPTH INTERVAL (m)  | ROCK TYPE              | TEXTURE & GRAIN SIZE DESCRIPTION
+--------------------+------------------------+----------------------------------
+0.00 - 5.00         | ALLUVIUM               | Unconsolidated, clastic
+                    |                        | texture, mixed grain sizes
+                    |                        | ranging from silty sand to
+                    |                        | well-rounded river cobbles. --------------------------------------------------------------------------------
+5.00 - 18.70        | SANDSTONE              | Moderately weathered, bedded
+                    |                        | clastic texture,
+                    |                        | medium-grained. Well-sorted
+                    |                        | quartz grains with iron-oxide
+                    |                        | matrix cementation. --------------------------------------------------------------------------------
+18.70 - 30.00       | SILTSTONE              | Fresh, laminated texture, very
+                    |                        | fine-grained. Dark grey,
+                    |                        | uniform appearance, minor
+                    |                        | carbonaceous slickensides. EOH.
+
+--- Semantic segment 2 ---
+--------------------------------------------------------------------------------
+================================================================================
+
+   ├─ Extracted 2 semantic segments.
+   ├─ Packed into 1 sliding window prompts.
+   │  └─ Processing window 1/1 (330 tokens)...
+📖 Scanning: drill_hole_ddh_26_03.txt
+
+--- Semantic segment 1 ---
+================================================================================
+DIAMOND CORE DRILL LOG: DDH-26-03
+================================================================================
+Prospect        : Copper Hill Target
+Eastings/Northings: E: 412780.80 | N: 6183950.40
+Elevation       : 361.8m RL
+Azimuth / Dip   : 090 deg / -75 deg
+Core Size       : HQ3 (61.1mm diameter)
+Date Logged     : 2026-10-02
+Logged By       : A. Field-Geologist
+Total Depth     : 22.50 meters
+--------------------------------------------------------------------------------
+
+DEPTH INTERVAL (m)  | ROCK TYPE              | TEXTURE & GRAIN SIZE DESCRIPTION
+--------------------+------------------------+----------------------------------
+0.00 - 2.80         | Colluvial OVERBURDEN   | Loose, poorly sorted angular
+                    |                        | rock fragments in a
+                    |                        | fine-grained silty-loam topsoil
+                    |                        | matrix. --------------------------------------------------------------------------------
+2.80 - 15.40        | GRANODIORITE           | Fresh, phaneritic
+                    |                        | (equigranular) texture,
+                    |                        | coarse-grained. Interlocking
+                    |                        | crystals of plagioclase,
+                    |                        | quartz, and hornblende. --------------------------------------------------------------------------------
+15.40 - 22.50       | Porphyritic DACITE     | Fresh, porphyritic texture with
+                    |                        | fine-grained groundmass. |                   | Plagioclase phenocrysts (2-4mm)
+                    |                        | embedded in an aphanitic grey
+                    |                        | matrix. EOH.
+
+--- Semantic segment 2 ---
+--------------------------------------------------------------------------------
+================================================================================
+
+   ├─ Extracted 2 semantic segments.
+   ├─ Packed into 1 sliding window prompts.
+   │  └─ Processing window 1/1 (349 tokens)...
+📖 Scanning: drill_hole_ddh_26_04.txt
+
+--- Semantic segment 1 ---
+================================================================================
+DIAMOND CORE DRILL LOG: DDH-26-04
+================================================================================
+Prospect        : Golden Ridge Prospect
+Eastings/Northings: E: 412950.40 | N: 6184200.12
+Elevation       : 342.1m RL
+Azimuth / Dip   : 180 deg / -60 deg
+Core Size       : HQ3 (61.1mm diameter)
+Date Logged     : 2026-10-02
+Logged By       : A. Field-Geologist
+Total Depth     : 20.00 meters
+--------------------------------------------------------------------------------
+
+DEPTH INTERVAL (m)  | ROCK TYPE              | TEXTURE & GRAIN SIZE DESCRIPTION
+--------------------+------------------------+----------------------------------
+0.00 - 4.10         | Ferruginous DURICRUST  | Highly weathered, nodular to
+                    |                        | vesicular texture,
+                    |                        | fine-to-medium matrix. Hard
+                    |                        | cap, dominant secondary iron
+                    |                        | oxides. --------------------------------------------------------------------------------
+4.10 - 12.85        | SHALE                  | Moderately weathered, fissile
+                    |                        | texture, microcrystalline /
+                    |                        | very fine-grained. Easily
+                    |                        | splits along parallel bedding
+                    |                        | planes. --------------------------------------------------------------------------------
+12.85 - 20.00       | QUARTZITE              | Fresh, granoblastic (mosaic)
+                    |                        | texture, medium-grained. |                   | Recrystallised interlocking
+                    |                        | quartz grains, extremely hard.|                        | EOH.
+
+--- Semantic segment 2 ---
+--------------------------------------------------------------------------------
+================================================================================
+
+   ├─ Extracted 2 semantic segments.
+   ├─ Packed into 1 sliding window prompts.
+   │  └─ Processing window 1/1 (340 tokens)...
+📖 Scanning: drill_hole_ddh_26_05.txt
+
+--- Semantic segment 1 ---
+================================================================================
+DIAMOND CORE DRILL LOG: DDH-26-05
+================================================================================
+Prospect        : North Fault Fault-Zone
+Eastings/Northings: E: 413200.20 | N: 6184500.90
+Elevation       : 315.5m RL
+Azimuth / Dip   : 270 deg / -45 deg
+Core Size       : HQ3 (61.1mm diameter)
+Date Logged     : 2026-10-02
+Logged By       : A. Field-Geologist
+Total Depth     : 28.00 meters
+--------------------------------------------------------------------------------
+
+DEPTH INTERVAL (m)  | ROCK TYPE              | TEXTURE & GRAIN SIZE DESCRIPTION
+--------------------+------------------------+----------------------------------
+0.00 - 6.20         | Weathered GABBRO       | Strongly weathered, relict
+                    |                        | plutonic texture,
+                    |                        | coarse-grained. Heavily
+                    |                        | degraded pyroxenes altering to
+                    |                        | limonite and clays. --------------------------------------------------------------------------------
+6.20 - 19.50        | Fresh GABBRO           | Fresh, holocrystalline
+                    |                        | equigranular texture,
+                    |                        | coarse-grained. Dark
+                    |                        | greenish-black, dominated by
+                    |                        | plagioclase and augite
+                    |                        | crystals. --------------------------------------------------------------------------------
+19.50 - 28.00       | Fault BRECCIA          | Cataclastic texture, chaotic
+                    |                        | mixture of fine groundmass and
+                    |                        | angular, coarse (10-50mm)
+                    |                        | gabbroic clasts. EOH.
+
+--- Semantic segment 2 ---
+--------------------------------------------------------------------------------
+================================================================================
+
+   ├─ Extracted 2 semantic segments.
+   ├─ Packed into 1 sliding window prompts.
+   │  └─ Processing window 1/1 (358 tokens)...
+📖 Scanning: drill_hole_ddh_26_06.txt
+
+--- Semantic segment 1 ---
+================================================================================
+DIAMOND CORE DRILL LOG: DDH-26-06
+================================================================================
+Prospect       : Ironwood Ridge Gold Project
+Tenement / Block: Lease-2949-X
+Eastings/North : E: 413210.15 | N: 6184580.40 (MGA Zone 50)
+Elevation      : 355.4m RL
+Azimuth / Dip  : 090 deg / -50 deg
+Core Size      : HQ3 (61.1mm diameter)
+Date Logged    : 2026-10-02
+Logged By      : M. Albright (Senior Geologist)
+Total Depth    : 25.00 meters
+--------------------------------------------------------------------------------
+
+0.00m - 3.50m: OVERBURDEN
+Highly weathered soil, loose silt and sandy clay matrix.
+
+--- Semantic segment 2 ---
+Core Recovery: 35%  |  RQD: 0%  |  Alpha Angles: N/A
+
+3.50m - 14.20m: LIMESTONE
+Fine to medium-grained, bioclastic texture containing visible fossil fragments. Light grey to cream colour. Moderately hard, showing minor solution cavities. Core Recovery: 94%  |  RQD: 75%  |  Alpha Angles: 10 deg (bedding)
+
+14.20m - 25.00m: DOLOMITE
+Microcrystalline to crystalline texture, sugary (saccharoidal) appearance. Buff-yellow, highly competent, heavy mechanical hardness with minor stylolites. End of Hole (EOH) at 25.00m. Core Recovery: 98%  |  RQD: 91%  |  Alpha Angles:15 deg (bedding)
+================================================================================
+
+   ├─ Extracted 2 semantic segments.
+   ├─ Packed into 1 sliding window prompts.
+   │  └─ Processing window 1/1 (360 tokens)...
+📖 Scanning: drill_hole_ddh_26_07.txt
+
+--- Semantic segment 1 ---
+================================================================================
+DIAMOND CORE DRILL LOG: DDH-26-07
+================================================================================
+Prospect       : Ironwood Ridge Gold Project
+Tenement / Block: Lease-2949-X
+Eastings/North : E: 413350.60 | N: 6184710.85 (MGA Zone 50)
+Elevation      : 361.2m RL
+Azimuth / Dip  : 270 deg / -75 deg
+Core Size      : HQ3 (61.1mm diameter)
+Date Logged    : 2026-10-02
+Logged By      : M. Albright (Senior Geologist)
+Total Depth    : 30.00 meters
+--------------------------------------------------------------------------------
+
+0.00m - 5.10m: WEATHERED ZONE
+Saprolite clay after rhyolite, highly leached, cream-white, very soft. Core Recovery: 50%  |  RQD: 0%  |  Alpha Angles: N/A
+
+5.10m - 11.40m: RHYOLITE
+Aphanitic to glassy texture, crypto-crystalline matrix. Pale pinkish-grey.
+
+--- Semantic segment 2 ---
+Flow banding clearly visible throughout. Brittle fracturing on joint surfaces. Core Recovery: 88%  |  RQD: 62%  |  Alpha Angles: 55 deg (flow banding)
+
+11.40m - 30.00m: TUFF (WELDER IGNIMBRITE)
+Pyroclastic texture, flattened fiamme pumice clasts embedded in fine ash matrix. Medium-grained clasts, well-indurated, dark grey, strong compaction fabric. End of Hole (EOH) at 30.00m. Core Recovery: 96%  |  RQD: 84%  |  Alpha Angles: 50 deg (compaction)
+================================================================================
+
+   ├─ Extracted 2 semantic segments.
+   ├─ Packed into 1 sliding window prompts.
+   │  └─ Processing window 1/1 (386 tokens)...
+📖 Scanning: drill_hole_ddh_26_08.txt
+
+--- Semantic segment 1 ---
+================================================================================
+DIAMOND CORE DRILL LOG: DDH-26-08
+================================================================================
+Prospect       : Ironwood Ridge Gold Project
+Tenement / Block: Lease-2949-X
+Eastings/North : E: 413480.22 | N: 6184900.50 (MGA Zone 50)
+Elevation      : 338.7m RL
+Azimuth / Dip  : 000 deg / -90 deg
+Core Size      : HQ3 (61.1mm diameter)
+Date Logged    : 2026-10-02
+Logged By      : M. Albright (Senior Geologist)
+Total Depth    : 28.00 meters
+--------------------------------------------------------------------------------
+
+0.00m - 2.80m: ALLUVIUM
+Unconsolidated river gravels and coarse quartz sand matrix, wet. Core Recovery: 20%  |  RQD: 0%  |  Alpha Angles: N/A
+
+2.80m - 15.60m: CONGLOMERATE
+Polymictic clastic texture, poorly sorted rounded pebbles (2mm-50mm) of chertand 
+quartzite inside a coarse lithic sandstone matrix.
+
+--- Semantic segment 2 ---
+Strongly cemented. Core Recovery: 92%  |  RQD: 70%  |  Alpha Angles: N/A
+
+15.60m - 28.50m: ARKOSE SANDSTONE
+Coarse-grained, granular textural maturity, abundant pink K-feldspar grains (30%). Angular to sub-angular grain shape, thick massive bedding, highly porous. End of Hole (EOH) at 28.50m. Core Recovery: 97%  |  RQD: 89%  |  Alpha Angles: 20 deg (bedding)
+================================================================================
+
+   ├─ Extracted 2 semantic segments.
+   ├─ Packed into 1 sliding window prompts.
+   │  └─ Processing window 1/1 (379 tokens)...
+📖 Scanning: drill_hole_ddh_26_09.txt
+
+--- Semantic segment 1 ---
+================================================================================
+DIAMOND CORE DRILL LOG: DDH-26-09
+================================================================================
+Prospect       : Ironwood Ridge Gold Project
+Tenement / Block: Lease-2949-X
+Eastings/North : E: 413620.90 | N: 6185110.15 (MGA Zone 50)
+Elevation      : 349.1m RL
+Azimuth / Dip  : 135 deg / -60 deg
+Core Size      : HQ3 (61.1mm diameter)
+Date Logged    : 2026-10-02
+Logged By      : M. Albright (Senior Geologist)
+Total Depth    : 35.00 meters
+--------------------------------------------------------------------------------
+
+0.00m - 4.00m: COLLUVIUM
+Angular rock scree and mountain slope debris, uncompacted.
+
+--- Semantic segment 2 ---
+Core Recovery: 40%  |  RQD: 0%  |  Alpha Angles: N/A
+
+4.00m - 18.20m: MARBLE
+Granoblastic sacchroidal texture, medium to coarse equitable calcite grains. Pure white to banded bluish-grey, soft, reactive to dilute HCl. Core Recovery:95%  |  RQD: 80%  |  Alpha Angles: 40 deg (banding)
+
+18.20m - 35.00m: AMPHIBOLITE
+Nematoblastic acicular texture, aligned dark green hornblende prisms. Medium-grained, dark green-black, alternating with plagioclase streaks. End of Hole (EOH) at 35.00m. Core Recovery: 99%  |  RQD: 95%  |  Alpha Angles: 60 deg (lineation)
+================================================================================
+
+   ├─ Extracted 2 semantic segments.
+   ├─ Packed into 1 sliding window prompts.
+   │  └─ Processing window 1/1 (368 tokens)...
+📖 Scanning: drill_hole_ddh_26_10.txt
+
+--- Semantic segment 1 ---
+================================================================================
+DIAMOND CORE DRILL LOG: DDH-26-10
+================================================================================
+Prospect       : Ironwood Ridge Gold Project
+Tenement / Block: Lease-2949-X
+Eastings/North : E: 413780.45 | N: 6185320.60 (MGA Zone 50)
+Elevation      : 372.5m RL
+Azimuth / Dip  : 045 deg / -65 deg
+Core Size      : HQ3 (61.1mm diameter)
+Date Logged    : 2026-10-02
+Logged By      : M. Albright (Senior Geologist)
+Total Depth    : 40.00 meters
+--------------------------------------------------------------------------------
+
+0.00m - 6.20m: STRIP CLAY & SOIL
+Highly weathered ferruginous gravels and lateritic profile. Dark red. Core Recovery: 45%  |  RQD: 0%  |  Alpha Angles: N/A
+
+6.20m - 22.00m: PERIDOTITE (DUNITE)
+Ultramafic holocrystalline granular texture, entirely composed of olivine grains. Medium-grained, olive-green when fresh, showing strong serpentinisation on margins. Core Recovery: 91%  |  RQD: 73%  |  Alpha Angles: N/A
+
+22.00m - 40.00m: SERPENTINITE
+Fibrous mesh texture, completely altered ultramafic rock. Dark green to greasy black.
+
+--- Semantic segment 2 ---
+Slickensided network structures, asbestos-form chrysotile micro-veinlets. Endof Hole (EOH) at 40.00m. Core Recovery: 94%  |  RQD: 78%  |  Alpha Angles: 30deg (shear planes)
+================================================================================

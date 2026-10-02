@@ -1,9 +1,14 @@
 import os
+import json
 from dotenv import load_dotenv
 import glob
 import tiktoken
+import uuid
 from typing import List, Dict, Any
 from langchain_core.documents import Document
+from langchain_core.vectorstores import InMemoryVectorStore
+from langchain_classic.retrievers import MultiVectorRetriever
+from langchain_classic.storage import InMemoryStore
 from langchain_experimental.text_splitter import SemanticChunker
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
@@ -28,27 +33,88 @@ def count_tokens(text: str) -> int:
 # =====================================================================
 # 2. INTENT-DRIVEN GEOLOGICAL SEMANTIC CHUNKING
 # =====================================================================
-def semantic_chunk_file(file_path: str) -> List[Document]:
-    """
-    Reads a drill log file and applies semantic chunking based on 
-    the statistical differences in semantic embeddings across sentences.
-    """
+def load_drill_log_document(file_path: str) -> Document:
+    """Read a drill log as one parent document."""
     with open(file_path, 'r', encoding='utf-8') as f:
         raw_text = f.read()
-    
+
+    return Document(
+        page_content=raw_text,
+        metadata={"source": os.path.basename(file_path)}
+    )
+
+
+def semantic_chunk_document(base_doc: Document) -> List[Document]:
+    """Split one drill log document into semantic child segments."""
     # Initialize the semantic chunker using OpenAI Embeddings
     # Uses a percentile threshold to split chunks dynamically when context shifts
+    # this sends it to openAi
+    # breaks it down into high dimensional vectors and then looks for semantic shifts in the text
     embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
+
     chunker = SemanticChunker(
         embeddings, 
         breakpoint_threshold_type="percentile"
     )
     
-    # Wrap text in a LangChain Document format and chunk
-    base_doc = Document(page_content=raw_text, metadata={"source": os.path.basename(file_path)})
-    semantic_docs = chunker.split_documents([base_doc])
-    
-    return semantic_docs
+    return chunker.split_documents([base_doc])
+
+# =====================================================================
+# 2.5 PARENT-CHILD RETRIEVAL
+# =====================================================================
+def retrieve_parent_documents(
+    parent_docs: List[Document],
+    semantic_docs: List[Document],
+    query: str,
+    k: int = 4
+) -> List[Document]:
+    """Index semantic child segments and return their full-file parents."""
+    embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
+    vector_store = InMemoryVectorStore(embeddings)
+    docstore = InMemoryStore()
+
+    parent_ids_by_source = {}
+    parent_entries = []
+    for parent in parent_docs:
+        source = parent.metadata.get("source")
+        if not source:
+            raise ValueError("Every parent document must have a source filename.")
+        if source in parent_ids_by_source:
+            raise ValueError(f"Duplicate parent source filename: {source}")
+
+        parent_id = str(uuid.uuid4())
+        parent_ids_by_source[source] = parent_id
+        parent_entries.append((parent_id, parent))
+
+    child_docs = []
+    for segment in semantic_docs:
+        source = segment.metadata.get("source")
+        if source not in parent_ids_by_source:
+            raise ValueError(
+                f"No full-file parent document found for child segment source: {source}"
+            )
+        child_docs.append(
+            Document(
+                page_content=segment.page_content,
+                metadata={
+                    **segment.metadata,
+                    "doc_id": parent_ids_by_source[source]
+                }
+            )
+        )
+
+    if not child_docs:
+        raise ValueError("No semantic child segments were provided for retrieval.")
+
+    docstore.mset(parent_entries)
+    vector_store.add_documents(child_docs)
+    retriever = MultiVectorRetriever(
+        vectorstore=vector_store,
+        docstore=docstore,
+        id_key="doc_id",
+        search_kwargs={"k": k}
+    )
+    return retriever.invoke(query)
 
 # =====================================================================
 # 3. DYNAMIC SLIDING WINDOW (TOKEN-OPTIMISED BATCHING)
@@ -68,7 +134,7 @@ def build_dynamic_sliding_windows(semantic_docs: List[Document], max_window_toke
         # If a single semantic chunk is exceptionally long, handle separately
         if doc_tokens > max_window_tokens:
             windows.append({
-                "source": doc.metadata["source"],
+                "source": doc.metadata.get("source", "Unknown"),
                 "content": doc.page_content,
                 "token_count": doc_tokens
             })
@@ -77,8 +143,10 @@ def build_dynamic_sliding_windows(semantic_docs: List[Document], max_window_toke
         if current_window_tokens + doc_tokens > max_window_tokens:
             # Consolidate the active window text before slicing forward
             window_text = "\n\n--- [Semantic Context Shift] ---\n\n".join([d.page_content for d in current_window_docs])
+            
             windows.append({
-                "source": doc.metadata["source"],
+                # FIXED: Pulls source safely from the first document inside the active window queue
+                "source": current_window_docs[0].metadata.get("source", "Unknown") if current_window_docs else "Unknown",
                 "content": window_text,
                 "token_count": current_window_tokens
             })
@@ -104,11 +172,14 @@ def build_dynamic_sliding_windows(semantic_docs: List[Document], max_window_toke
     if current_window_docs:
         window_text = "\n\n--- [Semantic Context Shift] ---\n\n".join([d.page_content for d in current_window_docs])
         windows.append({
-            "source": semantic_docs[0].metadata["source"] if semantic_docs else "Unknown",
+            # FIXED: Added safe .get() access to prevent crashes on the last chunk
+            "source": semantic_docs[0].metadata.get("source", "Unknown") if semantic_docs else "Unknown",
             "content": window_text,
             "token_count": current_window_tokens
         })
-        
+
+        print(f"***windows: {windows}")
+
     return windows
 
 # =====================================================================
@@ -161,19 +232,24 @@ if __name__ == "__main__":
     print(f"📦 Discovered {len(target_files)} target log files for analysis.\n")
     
     all_extracted_insights = []
+    all_parent_documents = []
+    all_semantic_segments = []
     
     for file_path in target_files:
         print(f"📖 Scanning: {os.path.basename(file_path)}")
         
-        # Step A: Semantic Chunking (cuts along logical changes in text layout)
-        semantic_segments = semantic_chunk_file(file_path)
-        
+        # Keep the complete file as the parent; use its semantic segments downstream.
+        parent_document = load_drill_log_document(file_path)
+        all_parent_documents.append(parent_document)
+        semantic_segments = semantic_chunk_document(parent_document)
+        all_semantic_segments.extend(semantic_segments)
+
         # Step B: Dynamic Window grouping (ensures text fits target token boundaries safely)
         optimized_windows = build_dynamic_sliding_windows(
             semantic_segments, 
             max_window_tokens=1000, # Conservative chunk to prevent context fragmentation
             overlap_tokens=200      # 200 token overlap cushion
-        )
+        ) 
         
         print(f"   ├─ Extracted {len(semantic_segments)} semantic segments.")
         print(f"   ├─ Packed into {len(optimized_windows)} sliding window prompts.")
@@ -183,7 +259,26 @@ if __name__ == "__main__":
             print(f"   │  └─ Processing window {idx+1}/{len(optimized_windows)} ({window['token_count']} tokens)...")
             extraction_result = execute_drill_log_scan(window)
             all_extracted_insights.append(extraction_result)
+
+    if all_parent_documents:
+        retrieval_query = input(
+            "\nEnter a question to retrieve relevant drill-log context: "
+        ).strip()
+        if not retrieval_query:
+            raise ValueError("The retrieval query cannot be empty.")
+
+        retrieved_parents = retrieve_parent_documents(
+            all_parent_documents,
+            all_semantic_segments,
+            retrieval_query
+        )
+        print(f"\n🔎 Retrieved {len(retrieved_parents)} relevant drill-log files:")
+        for idx, parent in enumerate(retrieved_parents, start=1):
+            print(f"\n--- Retrieved parent {idx} ---")
+            print(f"Source: {parent.metadata.get('source', 'Unknown')}")
+            print(parent.page_content)
             
-    print("\n✅ Execution Finished! Sample Data Extracted:")
-    import json
-    print(json.dumps(all_extracted_insights[:2], indent=2))
+    # print("\n✅ Execution Finished! Sample Data Extracted:")
+    # print(f"Total records processed: {len(all_extracted_insights)}")
+
+    # print(json.dumps(all_extracted_insights, indent=2))

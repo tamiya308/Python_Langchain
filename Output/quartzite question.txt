@@ -1,0 +1,359 @@
+Enter a question to retrieve relevant drill-log context: which log contains the most QUARTZITE       
+
+🔎 Retrieved 4 relevant drill-log files:
+
+--- Retrieved parent 1 ---
+Source: drill_hole_ddh_26_04.txt
+================================================================================
+DIAMOND CORE DRILL LOG: DDH-26-04
+================================================================================
+Prospect        : Golden Ridge Prospect
+Eastings/Northings: E: 412950.40 | N: 6184200.12
+Elevation       : 342.1m RL
+Azimuth / Dip   : 180 deg / -60 deg
+Core Size       : HQ3 (61.1mm diameter)
+Date Logged     : 2026-10-02
+Logged By       : A. Field-Geologist
+Total Depth     : 20.00 meters
+--------------------------------------------------------------------------------
+
+DEPTH INTERVAL (m)  | ROCK TYPE              | TEXTURE & GRAIN SIZE DESCRIPTION
+--------------------+------------------------+----------------------------------
+0.00 - 4.10         | Ferruginous DURICRUST  | Highly weathered, nodular to
+                    |                        | vesicular texture,
+                    |                        | fine-to-medium matrix. Hard
+                    |                        | cap, dominant secondary iron
+                    |                        | oxides.
+--------------------------------------------------------------------------------
+4.10 - 12.85        | SHALE                  | Moderately weathered, fissile
+                    |                        | texture, microcrystalline /
+                    |                        | very fine-grained. Easily
+                    |                        | splits along parallel bedding
+                    |                        | planes.
+--------------------------------------------------------------------------------
+12.85 - 20.00       | QUARTZITE              | Fresh, granoblastic (mosaic)
+                    |                        | texture, medium-grained.
+                    |                        | Recrystallised interlocking
+                    |                        | quartz grains, extremely hard.
+                    |                        | EOH.
+--------------------------------------------------------------------------------
+================================================================================
+
+
+--- Retrieved parent 2 ---
+Source: drill_hole_ddh_26_01.txt
+================================================================================
+DIAMOND CORE DRILL LOG: DDH-26-01
+================================================================================
+Prospect        : Golden Ridge Prospect
+Eastings/Northings: E: 412900.50 | N: 6184100.20
+Elevation       : 345.2m RL
+Azimuth / Dip   : 180 deg / -60 deg
+Core Size       : HQ3 (61.1mm diameter)
+Date Logged     : 2026-10-02
+Logged By       : A. Field-Geologist
+Total Depth     : 25.00 meters
+--------------------------------------------------------------------------------
+
+DEPTH INTERVAL (m)  | ROCK TYPE              | TEXTURE & GRAIN SIZE DESCRIPTION
+--------------------+------------------------+----------------------------------
+0.00 - 3.50         | Clayey SAPROLITE       | Highly weathered, earthy
+                    |                        | texture, completely
+                    |                        | fine-grained. Reddish-brown
+                    |                        | oxidised clay mass with relict
+                    |                        | quartz grains.
+--------------------------------------------------------------------------------
+3.50 - 14.20        | Quartz-Biotite SCHIST  | Fresh, strongly foliated
+                    |                        | texture, fine-to-medium
+                    |                        | grained. Abundant aligned
+                    |                        | biotite flakes with alternating
+                    |                        | quartz-feldspar bands.
+--------------------------------------------------------------------------------
+14.20 - 25.00       | META-BASALT            | Fresh, crystalline to
+                    |                        | crystalline-granular texture,
+                    |                        | fine-grained. Dark green,
+                    |                        | highly competent, minor
+                    |                        | chlorite alteration on joint
+                    |                        | planes. EOH.
+--------------------------------------------------------------------------------
+================================================================================
+
+
+--- Retrieved parent 3 ---
+Source: drill_hole_ddh_26_02.txt
+================================================================================
+DIAMOND CORE DRILL LOG: DDH-26-02
+================================================================================
+Prospect        : Silver Valley Area
+Eastings/Northings: E: 413050.10 | N: 6184250.60
+Elevation       : 332.1m RL
+Azimuth / Dip   : 000 deg / -90 deg
+Core Size       : HQ3 (61.1mm diameter)
+Date Logged     : 2026-10-02
+Logged By       : A. Field-Geologist
+Total Depth     : 30.00 meters
+--------------------------------------------------------------------------------
+
+DEPTH INTERVAL (m)  | ROCK TYPE              | TEXTURE & GRAIN SIZE DESCRIPTION
+--------------------+------------------------+----------------------------------
+0.00 - 5.00         | ALLUVIUM               | Unconsolidated, clastic
+                    |                        | texture, mixed grain sizes
+                    |                        | ranging from silty sand to
+                    |                        | well-rounded river cobbles.
+--------------------------------------------------------------------------------
+5.00 - 18.70        | SANDSTONE              | Moderately weathered, bedded
+                    |                        | clastic texture,
+                    |                        | medium-grained. Well-sorted
+                    |                        | quartz grains with iron-oxide
+                    |                        | matrix cementation.
+--------------------------------------------------------------------------------
+18.70 - 30.00       | SILTSTONE              | Fresh, laminated texture, very
+                    |                        | fine-grained. Dark grey,
+                    |                        | uniform appearance, minor
+                    |                        | carbonaceous slickensides. EOH.
+--------------------------------------------------------------------------------
+================================================================================
+
+
+--- Retrieved parent 4 ---
+Source: drill_hole_ddh_26_05.txt
+================================================================================
+DIAMOND CORE DRILL LOG: DDH-26-05
+================================================================================
+Prospect        : North Fault Fault-Zone
+Eastings/Northings: E: 413200.20 | N: 6184500.90
+Elevation       : 315.5m RL
+Azimuth / Dip   : 270 deg / -45 deg
+Core Size       : HQ3 (61.1mm diameter)
+Date Logged     : 2026-10-02
+Logged By       : A. Field-Geologist
+Total Depth     : 28.00 meters
+--------------------------------------------------------------------------------
+
+DEPTH INTERVAL (m)  | ROCK TYPE              | TEXTURE & GRAIN SIZE DESCRIPTION
+--------------------+------------------------+----------------------------------
+0.00 - 6.20         | Weathered GABBRO       | Strongly weathered, relict
+                    |                        | plutonic texture,
+                    |                        | coarse-grained. Heavily
+                    |                        | degraded pyroxenes altering to
+                    |                        | limonite and clays.
+--------------------------------------------------------------------------------
+6.20 - 19.50        | Fresh GABBRO           | Fresh, holocrystalline
+                    |                        | equigranular texture,
+                    |                        | coarse-grained. Dark
+                    |                        | greenish-black, dominated by
+                    |                        | plagioclase and augite
+                    |                        | crystals.
+--------------------------------------------------------------------------------
+19.50 - 28.00       | Fault BRECCIA          | Cataclastic texture, chaotic
+                    |                        | mixture of fine groundmass and
+                    |                        | angular, coarse (10-50mm)
+                    |                        | gabbroic clasts. EOH.
+--------------------------------------------------------------------------------
+================================================================================
+
+
+✅ Execution Finished! Sample Data Extracted:
+Total records processed: 5
+[
+  {
+    "drill_log": {
+      "drill_hole": "DDH-26-01",
+      "prospect": "Golden Ridge Prospect",
+      "eastings": 412900.5,
+      "northings": 6184100.2,
+      "elevation": 345.2,
+      "azimuth": 180,
+      "dip": -60,
+      "core_size": "HQ3",
+      "date_logged": "2026-10-02",
+      "logged_by": "A. Field-Geologist",
+      "total_depth": 25.0,
+      "rock_types": [
+        {
+          "depth_interval": "0.00 - 3.50",
+          "rock_type": "Clayey SAPROLITE",
+          "texture_description": "Highly weathered, earthy texture, completely fine-grained. Reddish-brown oxidised clay mass with relict quartz grains."
+        },
+        {
+          "depth_interval": "3.50 - 14.20",
+          "rock_type": "Quartz-Biotite SCHIST",
+          "texture_description": "Fresh, strongly foliated texture, fine-to-medium grained. Abundant aligned biotite flakes with alternating quartz-feldspar bands."
+        },
+        {
+          "depth_interval": "14.20 - 25.00",
+          "rock_type": "META-BASALT",
+          "texture_description": "Fresh, crystalline to crystalline-granular texture, fine-grained. Dark green, highly competent, minor chlorite alteration on joint planes. EOH."
+        }
+      ]
+    },
+    "metadata": {
+      "context_missing": [
+        "Date of drilling",
+        "Drilling method",
+        "Geological classification"
+      ]
+    }
+  },
+  {
+    "drill_log": {
+      "drill_hole": "DDH-26-02",
+      "prospect": "Silver Valley Area",
+      "eastings": 413050.1,
+      "northings": 6184250.6,
+      "elevation": 332.1,
+      "azimuth": 0,
+      "dip": -90,
+      "core_size": "HQ3",
+      "core_diameter_mm": 61.1,
+      "date_logged": "2026-10-02",
+      "logged_by": "A. Field-Geologist",
+      "total_depth_m": 30.0,
+      "intervals": [
+        {
+          "depth_start_m": 0.0,
+          "depth_end_m": 5.0,
+          "rock_type": "ALLUVIUM",
+          "texture": "Unconsolidated, clastic",
+          "grain_size_description": "mixed grain sizes ranging from silty sand to well-rounded river cobbles."
+        },
+        {
+          "depth_start_m": 5.0,
+          "depth_end_m": 18.7,
+          "rock_type": "SANDSTONE",
+          "texture": "Moderately weathered, bedded clastic",
+          "grain_size_description": "medium-grained. Well-sorted quartz grains with iron-oxide matrix cementation."
+        },
+        {
+          "depth_start_m": 18.7,
+          "depth_end_m": 30.0,
+          "rock_type": "SILTSTONE",
+          "texture": "Fresh, laminated",
+          "grain_size_description": "very fine-grained. Dark grey, uniform appearance, minor carbonaceous slickensides. EOH."
+        }
+      ]
+    },
+    "metadata": {
+      "context_missing": [
+        "rock_type_classification",
+        "geological_structure",
+        "mineralization",
+        "alteration"
+      ]
+    }
+  },
+  {
+    "drill_log": {
+      "drill_hole": "DDH-26-03",
+      "prospect": "Copper Hill Target",
+      "eastings": 412780.8,
+      "northings": 6183950.4,
+      "elevation": 361.8,
+      "azimuth": 90,
+      "dip": -75,
+      "core_size": "HQ3",
+      "core_diameter_mm": 61.1,
+      "date_logged": "2026-10-02",
+      "logged_by": "A. Field-Geologist",
+      "total_depth_m": 22.5,
+      "rock_types": [
+        {
+          "depth_interval_m": "0.00 - 2.80",
+          "rock_type": "Colluvial OVERBURDEN",
+          "texture": "Loose, poorly sorted angular rock fragments in a fine-grained silty-loam topsoil matrix."
+        },
+        {
+          "depth_interval_m": "2.80 - 15.40",
+          "rock_type": "GRANODIORITE",
+          "texture": "Fresh, phaneritic (equigranular) texture, coarse-grained. Interlocking crystals of plagioclase, quartz, and hornblende."
+        },
+        {
+          "depth_interval_m": "15.40 - 22.50",
+          "rock_type": "Porphyritic DACITE",
+          "texture": "Fresh, porphyritic texture with fine-grained groundmass. Plagioclase phenocrysts (2-4mm) embedded in an aphanitic grey matrix."
+        }
+      ]
+    }
+  },
+  {
+    "drill_log": {
+      "drill_hole_id": "DDH-26-04",
+      "prospect": "Golden Ridge Prospect",
+      "eastings": 412950.4,
+      "northings": 6184200.12,
+      "elevation": 342.1,
+      "azimuth": 180,
+      "dip": -60,
+      "core_size": "HQ3",
+      "date_logged": "2026-10-02",
+      "logged_by": "A. Field-Geologist",
+      "total_depth": 20.0,
+      "core_intervals": [
+        {
+          "depth_start": 0.0,
+          "depth_end": 4.1,
+          "rock_type": "Ferruginous DURICRUST",
+          "texture_description": "Highly weathered, nodular to vesicular texture, fine-to-medium matrix. Hard cap, dominant secondary iron oxides."
+        },
+        {
+          "depth_start": 4.1,
+          "depth_end": 12.85,
+          "rock_type": "SHALE",
+          "texture_description": "Moderately weathered, fissile texture, microcrystalline / very fine-grained. Easily splits along parallel bedding planes."
+        },
+        {
+          "depth_start": 12.85,
+          "depth_end": 20.0,
+          "rock_type": "QUARTZITE",
+          "texture_description": "Fresh, granoblastic (mosaic) texture, medium-grained. Recrystallised interlocking quartz grains, extremely hard."
+        }
+      ]
+    },
+    "metadata": {
+      "context_missing": [
+        "Core Orientation",
+        "Geological Age",
+        "Sample Number"
+      ]
+    }
+  },
+  {
+    "drill_log": {
+      "drill_hole": "DDH-26-05",
+      "prospect": "North Fault Fault-Zone",
+      "eastings": 413200.2,
+      "northings": 6184500.9,
+      "elevation": 315.5,
+      "azimuth": 270,
+      "dip": -45,
+      "core_size": "HQ3",
+      "date_logged": "2026-10-02",
+      "logged_by": "A. Field-Geologist",
+      "total_depth": 28.0,
+      "core_intervals": [
+        {
+          "depth_interval": "0.00 - 6.20",
+          "rock_type": "Weathered GABBRO",
+          "texture_description": "Strongly weathered, relict plutonic texture, coarse-grained. Heavily degraded pyroxenes altering to limonite and clays."
+        },
+        {
+          "depth_interval": "6.20 - 19.50",
+          "rock_type": "Fresh GABBRO",
+          "texture_description": "Fresh, holocrystalline equigranular texture, coarse-grained. Dark greenish-black, dominated by plagioclase and augite crystals."
+        },
+        {
+          "depth_interval": "19.50 - 28.00",
+          "rock_type": "Fault BRECCIA",
+          "texture_description": "Cataclastic texture, chaotic mixture of fine groundmass and angular, coarse (10-50mm) gabbroic clasts. EOH."
+        }
+      ]
+    },
+    "metadata": {
+      "context_missing": [
+        "Mineralization",
+        "Alteration",
+        "Structural Features"
+      ]
+    }
+  }
+]

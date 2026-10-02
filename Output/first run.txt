@@ -1,3 +1,48 @@
+📦 Discovered 10 target log files for analysis.
+
+📖 Scanning: drill_hole_ddh_26_01.txt
+   ├─ Extracted 2 semantic segments.
+   ├─ Packed into 1 sliding window prompts.
+   │  └─ Processing window 1/1 (358 tokens)...
+📖 Scanning: drill_hole_ddh_26_02.txt
+   ├─ Extracted 2 semantic segments.
+   ├─ Packed into 1 sliding window prompts.
+   │  └─ Processing window 1/1 (330 tokens)...
+📖 Scanning: drill_hole_ddh_26_03.txt
+   ├─ Extracted 2 semantic segments.
+   ├─ Packed into 1 sliding window prompts.
+   │  └─ Processing window 1/1 (349 tokens)...
+📖 Scanning: drill_hole_ddh_26_04.txt
+   ├─ Extracted 2 semantic segments.
+   ├─ Packed into 1 sliding window prompts.
+   │  └─ Processing window 1/1 (340 tokens)...
+📖 Scanning: drill_hole_ddh_26_05.txt
+   ├─ Extracted 2 semantic segments.
+   ├─ Packed into 1 sliding window prompts.
+   │  └─ Processing window 1/1 (358 tokens)...
+📖 Scanning: drill_hole_ddh_26_06.txt
+   ├─ Extracted 2 semantic segments.
+   ├─ Packed into 1 sliding window prompts.
+   │  └─ Processing window 1/1 (360 tokens)...
+📖 Scanning: drill_hole_ddh_26_07.txt
+   ├─ Extracted 2 semantic segments.
+   ├─ Packed into 1 sliding window prompts.
+   │  └─ Processing window 1/1 (386 tokens)...
+📖 Scanning: drill_hole_ddh_26_08.txt
+   ├─ Extracted 2 semantic segments.
+   ├─ Packed into 1 sliding window prompts.
+   │  └─ Processing window 1/1 (379 tokens)...
+📖 Scanning: drill_hole_ddh_26_09.txt
+   ├─ Extracted 2 semantic segments.
+   ├─ Packed into 1 sliding window prompts.
+   │  └─ Processing window 1/1 (368 tokens)...
+📖 Scanning: drill_hole_ddh_26_10.txt
+   ├─ Extracted 2 semantic segments.
+   ├─ Packed into 1 sliding window prompts.
+   │  └─ Processing window 1/1 (381 tokens)...
+
+✅ Execution Finished! Sample Data Extracted:
+Total records processed: 10
 [
   {
     "drill_log": {
@@ -12,32 +57,29 @@
       "date_logged": "2026-10-02",
       "logged_by": "A. Field-Geologist",
       "total_depth": 25.0,
-      "rock_types": [
+      "core_intervals": [
         {
           "depth_interval": "0.00 - 3.50",
           "rock_type": "Clayey SAPROLITE",
-          "texture": "Highly weathered, earthy texture, completely fine-grained.",
-          "description": "Reddish-brown oxidised clay mass with relict quartz grains."
+          "texture_description": "Highly weathered, earthy texture, completely fine-grained. Reddish-brown oxidised clay mass with relict quartz grains."
         },
         {
           "depth_interval": "3.50 - 14.20",
           "rock_type": "Quartz-Biotite SCHIST",
-          "texture": "Fresh, strongly foliated texture, fine-to-medium grained.",
-          "description": "Abundant aligned biotite flakes with alternating quartz-feldspar bands."
+          "texture_description": "Fresh, strongly foliated texture, fine-to-medium grained. Abundant aligned biotite flakes with alternating quartz-feldspar bands."
         },
         {
           "depth_interval": "14.20 - 25.00",
           "rock_type": "META-BASALT",
-          "texture": "Fresh, crystalline to crystalline-granular texture, fine-grained.",
-          "description": "Dark green, highly competent, minor chlorite alteration on joint planes. EOH."
+          "texture_description": "Fresh, crystalline to crystalline-granular texture, fine-grained. Dark green, highly competent, minor chlorite alteration on joint planes. EOH."
         }
       ]
     },
     "metadata": {
       "context_missing": [
-        "Sample ID",
-        "Geological Age",
-        "Lithology Classification"
+        "Date of drilling",
+        "Drilling method",
+        "Geological classification"
       ]
     }
   },
@@ -45,10 +87,8 @@
     "drill_log": {
       "drill_hole_id": "DDH-26-02",
       "prospect": "Silver Valley Area",
-      "coordinates": {
-        "eastings": 413050.1,
-        "northings": 6184250.6
-      },
+      "eastings": 413050.1,
+      "northings": 6184250.6,
       "elevation": 332.1,
       "azimuth": 0,
       "dip": -90,
@@ -61,7 +101,7 @@
         {
           "depth_interval_m": "0.00 - 5.00",
           "rock_type": "ALLUVIUM",
-          "texture_description": "Unconsolidated, clastic texture, mixed grain sizes ranging from silty sand to well-rounded river cobbles."
+          "texture_description": "Unconsolidated, clastic texture, mixed grain sizes ranging from silty sand to well-roundedriver cobbles."
         },
         {
           "depth_interval_m": "5.00 - 18.70",
@@ -81,6 +121,373 @@
         "Mineralization details",
         "Geotechnical properties"
       ]
+    }
+  },
+  {
+    "drill_log": {
+      "drill_hole": "DDH-26-03",
+      "prospect": "Copper Hill Target",
+      "eastings": 412780.8,
+      "northings": 6183950.4,
+      "elevation": 361.8,
+      "azimuth": 90,
+      "dip": -75,
+      "core_size": "HQ3",
+      "core_diameter_mm": 61.1,
+      "date_logged": "2026-10-02",
+      "logged_by": "A. Field-Geologist",
+      "total_depth_m": 22.5,
+      "intervals": [
+        {
+          "depth_start_m": 0.0,
+          "depth_end_m": 2.8,
+          "rock_type": "Colluvial OVERBURDEN",
+          "texture_description": "Loose, poorly sorted angular rock fragments in a fine-grained silty-loam topsoil matrix."
+        },
+        {
+          "depth_start_m": 2.8,
+          "depth_end_m": 15.4,
+          "rock_type": "GRANODIORITE",
+          "texture_description": "Fresh, phaneritic (equigranular) texture, coarse-grained. Interlocking crystals of plagioclase, quartz, and hornblende."
+        },
+        {
+          "depth_start_m": 15.4,
+          "depth_end_m": 22.5,
+          "rock_type": "Porphyritic DACITE",
+          "texture_description": "Fresh, porphyritic texture with fine-grained groundmass. Plagioclase phenocrysts (2-4mm) embedded in an aphanitic grey matrix."
+        }
+      ]
+    }
+  },
+  {
+    "drill_log": {
+      "drill_hole": "DDH-26-04",
+      "prospect": "Golden Ridge Prospect",
+      "eastings": 412950.4,
+      "northings": 6184200.12,
+      "elevation": 342.1,
+      "azimuth": 180,
+      "dip": -60,
+      "core_size": "HQ3",
+      "core_diameter_mm": 61.1,
+      "date_logged": "2026-10-02",
+      "logged_by": "A. Field-Geologist",
+      "total_depth_m": 20.0,
+      "core_intervals": [
+        {
+          "depth_start_m": 0.0,
+          "depth_end_m": 4.1,
+          "rock_type": "Ferruginous DURICRUST",
+          "texture_description": "Highly weathered, nodular to vesicular texture, fine-to-medium matrix. Hard cap, dominant secondary iron oxides."
+        },
+        {
+          "depth_start_m": 4.1,
+          "depth_end_m": 12.85,
+          "rock_type": "SHALE",
+          "texture_description": "Moderately weathered, fissile texture, microcrystalline / very fine-grained. Easily splitsalong parallel bedding planes."
+        },
+        {
+          "depth_start_m": 12.85,
+          "depth_end_m": 20.0,
+          "rock_type": "QUARTZITE",
+          "texture_description": "Fresh, granoblastic (mosaic) texture, medium-grained. Recrystallised interlocking quartz grains, extremely hard."
+        }
+      ]
+    },
+    "metadata": {
+      "context_missing": [
+        "Geological Age",
+        "Mineralization Type",
+        "Structural Features"
+      ]
+    }
+  },
+  {
+    "drill_log": {
+      "drill_hole_id": "DDH-26-05",
+      "prospect": "North Fault Fault-Zone",
+      "eastings": 413200.2,
+      "northings": 6184500.9,
+      "elevation": 315.5,
+      "azimuth": 270,
+      "dip": -45,
+      "core_size": "HQ3",
+      "date_logged": "2026-10-02",
+      "logged_by": "A. Field-Geologist",
+      "total_depth": 28.0,
+      "core_intervals": [
+        {
+          "depth_interval": "0.00 - 6.20",
+          "rock_type": "Weathered GABBRO",
+          "texture_description": "Strongly weathered, relict plutonic texture, coarse-grained. Heavily degraded pyroxenes altering to limonite and clays."
+        },
+        {
+          "depth_interval": "6.20 - 19.50",
+          "rock_type": "Fresh GABBRO",
+          "texture_description": "Fresh, holocrystalline equigranular texture, coarse-grained. Dark greenish-black, dominated by plagioclase and augite crystals."
+        },
+        {
+          "depth_interval": "19.50 - 28.00",
+          "rock_type": "Fault BRECCIA",
+          "texture_description": "Cataclastic texture, chaotic mixture of fine groundmass and angular, coarse (10-50mm) gabbroic clasts. EOH."
+        }
+      ]
+    },
+    "metadata": {
+      "context_missing": "Context Missing"
+    }
+  },
+  {
+    "drill_log": {
+      "drill_hole": "DDH-26-06",
+      "prospect": "Ironwood Ridge Gold Project",
+      "tenement_block": "Lease-2949-X",
+      "eastings": 413210.15,
+      "northings": 6184580.4,
+      "elevation": 355.4,
+      "azimuth": 90,
+      "dip": -50,
+      "core_size": "HQ3",
+      "date_logged": "2026-10-02",
+      "logged_by": "M. Albright",
+      "total_depth": 25.0,
+      "core_segments": [
+        {
+          "from_depth": 0.0,
+          "to_depth": 3.5,
+          "rock_type": "OVERBURDEN",
+          "description": "Highly weathered soil, loose silt and sandy clay matrix.",
+          "core_recovery": 35,
+          "RQD": 0,
+          "alpha_angles": "N/A"
+        },
+        {
+          "from_depth": 3.5,
+          "to_depth": 14.2,
+          "rock_type": "LIMESTONE",
+          "description": "Fine to medium-grained, bioclastic texture containing visible fossil fragments. Light grey to cream colour. Moderately hard, showing minor solution cavities.",
+          "core_recovery": 94,
+          "RQD": 75,
+          "alpha_angles": "10 deg (bedding)"
+        },
+        {
+          "from_depth": 14.2,
+          "to_depth": 25.0,
+          "rock_type": "DOLOMITE",
+          "description": "Microcrystalline to crystalline texture, sugary (saccharoidal) appearance. Buff-yellow, highly competent, heavy mechanical hardness with minor stylolites.",
+          "core_recovery": 98,
+          "RQD": 91,
+          "alpha_angles": "15 deg (bedding)"
+        }
+      ]
+    },
+    "metadata": {
+      "context_missing": [
+        "Core Recovery for OVERBURDEN",
+        "RQD for OVERBURDEN",
+        "Alpha Angles for OVERBURDEN"
+      ]
+    }
+  },
+  {
+    "drill_log": {
+      "drill_hole": "DDH-26-07",
+      "prospect": "Ironwood Ridge Gold Project",
+      "tenement_block": "Lease-2949-X",
+      "eastings": 413350.6,
+      "northings": 6184710.85,
+      "elevation": 361.2,
+      "azimuth": 270,
+      "dip": -75,
+      "core_size": "HQ3",
+      "date_logged": "2026-10-02",
+      "logged_by": "M. Albright",
+      "total_depth": 30.0,
+      "core_segments": [
+        {
+          "depth_start": 0.0,
+          "depth_end": 5.1,
+          "lithology": "WEATHERED ZONE",
+          "description": "Saprolite clay after rhyolite, highly leached, cream-white, very soft.",
+          "core_recovery": 50,
+          "RQD": 0,
+          "alpha_angles": "N/A"
+        },
+        {
+          "depth_start": 5.1,
+          "depth_end": 11.4,
+          "lithology": "RHYOLITE",
+          "description": "Aphanitic to glassy texture, crypto-crystalline matrix. Pale pinkish-grey.",
+          "core_recovery": 88,
+          "RQD": 62,
+          "alpha_angles": 55,
+          "additional_notes": "Flow banding clearly visible throughout. Brittle fracturing on joint surfaces."
+        },
+        {
+          "depth_start": 11.4,
+          "depth_end": 30.0,
+          "lithology": "TUFF (WELDER IGNIMBRITE)",
+          "description": "Pyroclastic texture, flattened fiamme pumice clasts embedded in fine ash matrix. Medium-grained clasts, well-indurated, dark grey, strong compaction fabric.",
+          "core_recovery": 96,
+          "RQD": 84,
+          "alpha_angles": 50,
+          "additional_notes": "End of Hole (EOH) at 30.00m."
+        }
+      ]
+    },
+    "metadata": {
+      "context_missing": [
+        "Core Recovery for WEATHERED ZONE",
+        "Alpha Angles for WEATHERED ZONE"
+      ]
+    }
+  },
+  {
+    "drill_log": {
+      "drill_hole": "DDH-26-08",
+      "prospect": "Ironwood Ridge Gold Project",
+      "tenement_block": "Lease-2949-X",
+      "eastings": 413480.22,
+      "northings": 6184900.5,
+      "elevation": 338.7,
+      "azimuth": 0,
+      "dip": -90,
+      "core_size": "HQ3",
+      "date_logged": "2026-10-02",
+      "logged_by": "M. Albright",
+      "total_depth": 28.0,
+      "core_segments": [
+        {
+          "from_depth": 0.0,
+          "to_depth": 2.8,
+          "lithology": "ALLUVIUM",
+          "description": "Unconsolidated river gravels and coarse quartz sand matrix, wet.",
+          "core_recovery": 20,
+          "RQD": 0,
+          "alpha_angles": "N/A"
+        },
+        {
+          "from_depth": 2.8,
+          "to_depth": 15.6,
+          "lithology": "CONGLOMERATE",
+          "description": "Polymictic clastic texture, poorly sorted rounded pebbles (2mm-50mm) of chert and quartzite insidea coarse lithic sandstone matrix. Strongly cemented.",
+          "core_recovery": 92,
+          "RQD": 70,
+          "alpha_angles": "N/A"
+        },
+        {
+          "from_depth": 15.6,
+          "to_depth": 28.5,
+          "lithology": "ARKOSE SANDSTONE",
+          "description": "Coarse-grained, granular textural maturity, abundant pink K-feldspar grains (30%). Angular to sub-angular grain shape, thick massive bedding, highly porous.",
+          "core_recovery": 97,
+          "RQD": 89,
+          "alpha_angles": 20
+        }
+      ],
+      "context_missing": {
+        "metadata_fields": "None",
+        "classifications": "None"
+      }
+    }
+  },
+  {
+    "drill_log": {
+      "drill_hole": "DDH-26-09",
+      "prospect": "Ironwood Ridge Gold Project",
+      "tenement_block": "Lease-2949-X",
+      "eastings": 413620.9,
+      "northings": 6185110.15,
+      "elevation": 349.1,
+      "azimuth": 135,
+      "dip": -60,
+      "core_size": "HQ3",
+      "date_logged": "2026-10-02",
+      "logged_by": "M. Albright",
+      "total_depth": 35.0,
+      "core_segments": [
+        {
+          "from": 0.0,
+          "to": 4.0,
+          "lithology": "COLLUVIUM",
+          "description": "Angular rock scree and mountain slope debris, uncompacted.",
+          "core_recovery": 40,
+          "RQD": 0,
+          "alpha_angles": "N/A"
+        },
+        {
+          "from": 4.0,
+          "to": 18.2,
+          "lithology": "MARBLE",
+          "description": "Granoblastic sacchroidal texture, medium to coarse equitable calcite grains. Pure white to banded bluish-grey, soft, reactive to dilute HCl.",
+          "core_recovery": 95,
+          "RQD": 80,
+          "alpha_angles": 40
+        },
+        {
+          "from": 18.2,
+          "to": 35.0,
+          "lithology": "AMPHIBOLITE",
+          "description": "Nematoblastic acicular texture, aligned dark green hornblende prisms. Medium-grained, dark green-black, alternating with plagioclase streaks.",
+          "core_recovery": 99,
+          "RQD": 95,
+          "alpha_angles": 60
+        }
+      ],
+      "context_missing": {
+        "core_recovery": "Context Missing",
+        "RQD": "Context Missing",
+        "alpha_angles": "Context Missing"
+      }
+    }
+  },
+  {
+    "drill_log": {
+      "drill_hole": "DDH-26-10",
+      "prospect": "Ironwood Ridge Gold Project",
+      "tenement_block": "Lease-2949-X",
+      "eastings": 413780.45,
+      "northings": 6185320.6,
+      "elevation": 372.5,
+      "azimuth": 45,
+      "dip": -65,
+      "core_size": "HQ3",
+      "date_logged": "2026-10-02",
+      "logged_by": "M. Albright",
+      "total_depth": 40.0,
+      "core_segments": [
+        {
+          "depth_start": 0.0,
+          "depth_end": 6.2,
+          "lithology": "STRIP CLAY & SOIL",
+          "description": "Highly weathered ferruginous gravels and lateritic profile. Dark red.",
+          "core_recovery": 45,
+          "RQD": 0,
+          "alpha_angles": "N/A"
+        },
+        {
+          "depth_start": 6.2,
+          "depth_end": 22.0,
+          "lithology": "PERIDOTITE (DUNITE)",
+          "description": "Ultramafic holocrystalline granular texture, entirely composed of olivine grains. Medium-grained, olive-green when fresh, showing strong serpentinisation on margins.",
+          "core_recovery": 91,
+          "RQD": 73,
+          "alpha_angles": "N/A"
+        },
+        {
+          "depth_start": 22.0,
+          "depth_end": 40.0,
+          "lithology": "SERPENTINITE",
+          "description": "Fibrous mesh texture, completely altered ultramafic rock. Dark green to greasy black.",
+          "core_recovery": 94,
+          "RQD": 78,
+          "alpha_angles": 30
+        }
+      ],
+      "context": {
+        "end_of_hole": 40.0,
+        "additional_notes": "Slickensided network structures, asbestos-form chrysotile micro-veinlets."
+      }
     }
   }
 ]
