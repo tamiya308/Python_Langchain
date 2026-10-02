@@ -14,4 +14,4 @@ if __name__ == "__main__":
     for idx, item in enumerate(my_data):
         print(f"\n[Record #{idx + 1}] Scanning {item.get('source', 'Unknown')}")
         result = execute_mineral_scan(item)
-        print(json.dumps(result, indent=2))
+        print(f"result: {json.dumps(result, indent=2)}")

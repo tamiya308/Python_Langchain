@@ -133,6 +133,7 @@ def execute_mineral_scan(
     chain = prompt | llm.with_structured_output(LogScanRecord)
 
     try:
+        print(f"window_payload: {window_payload}\n")
         result = chain.invoke({
             "source": window_payload["source"],
             "content": window_payload["content"]
