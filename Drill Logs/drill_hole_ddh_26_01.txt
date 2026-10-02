@@ -1,0 +1,35 @@
+================================================================================
+DIAMOND CORE DRILL LOG: DDH-26-01
+================================================================================
+Prospect        : Golden Ridge Prospect
+Eastings/Northings: E: 412900.50 | N: 6184100.20
+Elevation       : 345.2m RL
+Azimuth / Dip   : 180 deg / -60 deg
+Core Size       : HQ3 (61.1mm diameter)
+Date Logged     : 2026-10-02
+Logged By       : A. Field-Geologist
+Total Depth     : 25.00 meters
+--------------------------------------------------------------------------------
+
+DEPTH INTERVAL (m)  | ROCK TYPE              | TEXTURE & GRAIN SIZE DESCRIPTION
+--------------------+------------------------+----------------------------------
+0.00 - 3.50         | Clayey SAPROLITE       | Highly weathered, earthy
+                    |                        | texture, completely
+                    |                        | fine-grained. Reddish-brown
+                    |                        | oxidised clay mass with relict
+                    |                        | quartz grains.
+--------------------------------------------------------------------------------
+3.50 - 14.20        | Quartz-Biotite SCHIST  | Fresh, strongly foliated
+                    |                        | texture, fine-to-medium
+                    |                        | grained. Abundant aligned
+                    |                        | biotite flakes with alternating
+                    |                        | quartz-feldspar bands.
+--------------------------------------------------------------------------------
+14.20 - 25.00       | META-BASALT            | Fresh, crystalline to
+                    |                        | crystalline-granular texture,
+                    |                        | fine-grained. Dark green,
+                    |                        | highly competent, minor
+                    |                        | chlorite alteration on joint
+                    |                        | planes. EOH.
+--------------------------------------------------------------------------------
+================================================================================

@@ -1,0 +1,33 @@
+================================================================================
+DIAMOND CORE DRILL LOG: DDH-26-03
+================================================================================
+Prospect        : Copper Hill Target
+Eastings/Northings: E: 412780.80 | N: 6183950.40
+Elevation       : 361.8m RL
+Azimuth / Dip   : 090 deg / -75 deg
+Core Size       : HQ3 (61.1mm diameter)
+Date Logged     : 2026-10-02
+Logged By       : A. Field-Geologist
+Total Depth     : 22.50 meters
+--------------------------------------------------------------------------------
+
+DEPTH INTERVAL (m)  | ROCK TYPE              | TEXTURE & GRAIN SIZE DESCRIPTION
+--------------------+------------------------+----------------------------------
+0.00 - 2.80         | Colluvial OVERBURDEN   | Loose, poorly sorted angular
+                    |                        | rock fragments in a
+                    |                        | fine-grained silty-loam topsoil
+                    |                        | matrix.
+--------------------------------------------------------------------------------
+2.80 - 15.40        | GRANODIORITE           | Fresh, phaneritic
+                    |                        | (equigranular) texture,
+                    |                        | coarse-grained. Interlocking
+                    |                        | crystals of plagioclase,
+                    |                        | quartz, and hornblende.
+--------------------------------------------------------------------------------
+15.40 - 22.50       | Porphyritic DACITE     | Fresh, porphyritic texture with
+                    |                        | fine-grained groundmass.
+                    |                        | Plagioclase phenocrysts (2-4mm)
+                    |                        | embedded in an aphanitic grey
+                    |                        | matrix. EOH.
+--------------------------------------------------------------------------------
+================================================================================

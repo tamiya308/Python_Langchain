@@ -1,0 +1,29 @@
+================================================================================
+DIAMOND CORE DRILL LOG: DDH-26-07
+================================================================================
+Prospect       : Ironwood Ridge Gold Project
+Tenement / Block: Lease-2949-X
+Eastings/North : E: 413350.60 | N: 6184710.85 (MGA Zone 50)
+Elevation      : 361.2m RL
+Azimuth / Dip  : 270 deg / -75 deg
+Core Size      : HQ3 (61.1mm diameter)
+Date Logged    : 2026-10-02
+Logged By      : M. Albright (Senior Geologist)
+Total Depth    : 30.00 meters
+--------------------------------------------------------------------------------
+
+0.00m - 5.10m: WEATHERED ZONE
+Saprolite clay after rhyolite, highly leached, cream-white, very soft.
+Core Recovery: 50%  |  RQD: 0%  |  Alpha Angles: N/A
+
+5.10m - 11.40m: RHYOLITE
+Aphanitic to glassy texture, crypto-crystalline matrix. Pale pinkish-grey. 
+Flow banding clearly visible throughout. Brittle fracturing on joint surfaces.
+Core Recovery: 88%  |  RQD: 62%  |  Alpha Angles: 55 deg (flow banding)
+
+11.40m - 30.00m: TUFF (WELDER IGNIMBRITE)
+Pyroclastic texture, flattened fiamme pumice clasts embedded in fine ash matrix.
+Medium-grained clasts, well-indurated, dark grey, strong compaction fabric.
+End of Hole (EOH) at 30.00m.
+Core Recovery: 96%  |  RQD: 84%  |  Alpha Angles: 50 deg (compaction)
+================================================================================

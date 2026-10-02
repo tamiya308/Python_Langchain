@@ -1,0 +1,32 @@
+================================================================================
+DIAMOND CORE DRILL LOG: DDH-26-02
+================================================================================
+Prospect        : Silver Valley Area
+Eastings/Northings: E: 413050.10 | N: 6184250.60
+Elevation       : 332.1m RL
+Azimuth / Dip   : 000 deg / -90 deg
+Core Size       : HQ3 (61.1mm diameter)
+Date Logged     : 2026-10-02
+Logged By       : A. Field-Geologist
+Total Depth     : 30.00 meters
+--------------------------------------------------------------------------------
+
+DEPTH INTERVAL (m)  | ROCK TYPE              | TEXTURE & GRAIN SIZE DESCRIPTION
+--------------------+------------------------+----------------------------------
+0.00 - 5.00         | ALLUVIUM               | Unconsolidated, clastic
+                    |                        | texture, mixed grain sizes
+                    |                        | ranging from silty sand to
+                    |                        | well-rounded river cobbles.
+--------------------------------------------------------------------------------
+5.00 - 18.70        | SANDSTONE              | Moderately weathered, bedded
+                    |                        | clastic texture,
+                    |                        | medium-grained. Well-sorted
+                    |                        | quartz grains with iron-oxide
+                    |                        | matrix cementation.
+--------------------------------------------------------------------------------
+18.70 - 30.00       | SILTSTONE              | Fresh, laminated texture, very
+                    |                        | fine-grained. Dark grey,
+                    |                        | uniform appearance, minor
+                    |                        | carbonaceous slickensides. EOH.
+--------------------------------------------------------------------------------
+================================================================================

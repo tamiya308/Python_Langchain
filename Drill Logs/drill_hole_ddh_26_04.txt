@@ -1,0 +1,34 @@
+================================================================================
+DIAMOND CORE DRILL LOG: DDH-26-04
+================================================================================
+Prospect        : Golden Ridge Prospect
+Eastings/Northings: E: 412950.40 | N: 6184200.12
+Elevation       : 342.1m RL
+Azimuth / Dip   : 180 deg / -60 deg
+Core Size       : HQ3 (61.1mm diameter)
+Date Logged     : 2026-10-02
+Logged By       : A. Field-Geologist
+Total Depth     : 20.00 meters
+--------------------------------------------------------------------------------
+
+DEPTH INTERVAL (m)  | ROCK TYPE              | TEXTURE & GRAIN SIZE DESCRIPTION
+--------------------+------------------------+----------------------------------
+0.00 - 4.10         | Ferruginous DURICRUST  | Highly weathered, nodular to
+                    |                        | vesicular texture,
+                    |                        | fine-to-medium matrix. Hard
+                    |                        | cap, dominant secondary iron
+                    |                        | oxides.
+--------------------------------------------------------------------------------
+4.10 - 12.85        | SHALE                  | Moderately weathered, fissile
+                    |                        | texture, microcrystalline /
+                    |                        | very fine-grained. Easily
+                    |                        | splits along parallel bedding
+                    |                        | planes.
+--------------------------------------------------------------------------------
+12.85 - 20.00       | QUARTZITE              | Fresh, granoblastic (mosaic)
+                    |                        | texture, medium-grained.
+                    |                        | Recrystallised interlocking
+                    |                        | quartz grains, extremely hard.
+                    |                        | EOH.
+--------------------------------------------------------------------------------
+================================================================================

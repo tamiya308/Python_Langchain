@@ -1,0 +1,34 @@
+================================================================================
+DIAMOND CORE DRILL LOG: DDH-26-05
+================================================================================
+Prospect        : North Fault Fault-Zone
+Eastings/Northings: E: 413200.20 | N: 6184500.90
+Elevation       : 315.5m RL
+Azimuth / Dip   : 270 deg / -45 deg
+Core Size       : HQ3 (61.1mm diameter)
+Date Logged     : 2026-10-02
+Logged By       : A. Field-Geologist
+Total Depth     : 28.00 meters
+--------------------------------------------------------------------------------
+
+DEPTH INTERVAL (m)  | ROCK TYPE              | TEXTURE & GRAIN SIZE DESCRIPTION
+--------------------+------------------------+----------------------------------
+0.00 - 6.20         | Weathered GABBRO       | Strongly weathered, relict
+                    |                        | plutonic texture,
+                    |                        | coarse-grained. Heavily
+                    |                        | degraded pyroxenes altering to
+                    |                        | limonite and clays.
+--------------------------------------------------------------------------------
+6.20 - 19.50        | Fresh GABBRO           | Fresh, holocrystalline
+                    |                        | equigranular texture,
+                    |                        | coarse-grained. Dark
+                    |                        | greenish-black, dominated by
+                    |                        | plagioclase and augite
+                    |                        | crystals.
+--------------------------------------------------------------------------------
+19.50 - 28.00       | Fault BRECCIA          | Cataclastic texture, chaotic
+                    |                        | mixture of fine groundmass and
+                    |                        | angular, coarse (10-50mm)
+                    |                        | gabbroic clasts. EOH.
+--------------------------------------------------------------------------------
+================================================================================

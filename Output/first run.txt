@@ -1,0 +1,86 @@
+[
+  {
+    "drill_log": {
+      "drill_hole": "DDH-26-01",
+      "prospect": "Golden Ridge Prospect",
+      "eastings": 412900.5,
+      "northings": 6184100.2,
+      "elevation": 345.2,
+      "azimuth": 180,
+      "dip": -60,
+      "core_size": "HQ3",
+      "date_logged": "2026-10-02",
+      "logged_by": "A. Field-Geologist",
+      "total_depth": 25.0,
+      "rock_types": [
+        {
+          "depth_interval": "0.00 - 3.50",
+          "rock_type": "Clayey SAPROLITE",
+          "texture": "Highly weathered, earthy texture, completely fine-grained.",
+          "description": "Reddish-brown oxidised clay mass with relict quartz grains."
+        },
+        {
+          "depth_interval": "3.50 - 14.20",
+          "rock_type": "Quartz-Biotite SCHIST",
+          "texture": "Fresh, strongly foliated texture, fine-to-medium grained.",
+          "description": "Abundant aligned biotite flakes with alternating quartz-feldspar bands."
+        },
+        {
+          "depth_interval": "14.20 - 25.00",
+          "rock_type": "META-BASALT",
+          "texture": "Fresh, crystalline to crystalline-granular texture, fine-grained.",
+          "description": "Dark green, highly competent, minor chlorite alteration on joint planes. EOH."
+        }
+      ]
+    },
+    "metadata": {
+      "context_missing": [
+        "Sample ID",
+        "Geological Age",
+        "Lithology Classification"
+      ]
+    }
+  },
+  {
+    "drill_log": {
+      "drill_hole_id": "DDH-26-02",
+      "prospect": "Silver Valley Area",
+      "coordinates": {
+        "eastings": 413050.1,
+        "northings": 6184250.6
+      },
+      "elevation": 332.1,
+      "azimuth": 0,
+      "dip": -90,
+      "core_size": "HQ3",
+      "core_diameter_mm": 61.1,
+      "date_logged": "2026-10-02",
+      "logged_by": "A. Field-Geologist",
+      "total_depth_m": 30.0,
+      "rock_types": [
+        {
+          "depth_interval_m": "0.00 - 5.00",
+          "rock_type": "ALLUVIUM",
+          "texture_description": "Unconsolidated, clastic texture, mixed grain sizes ranging from silty sand to well-rounded river cobbles."
+        },
+        {
+          "depth_interval_m": "5.00 - 18.70",
+          "rock_type": "SANDSTONE",
+          "texture_description": "Moderately weathered, bedded clastic texture, medium-grained. Well-sorted quartz grains with iron-oxide matrix cementation."
+        },
+        {
+          "depth_interval_m": "18.70 - 30.00",
+          "rock_type": "SILTSTONE",
+          "texture_description": "Fresh, laminated texture, very fine-grained. Dark grey, uniform appearance, minor carbonaceous slickensides. EOH."
+        }
+      ]
+    },
+    "metadata": {
+      "context_missing": [
+        "Structural geology attributes",
+        "Mineralization details",
+        "Geotechnical properties"
+      ]
+    }
+  }
+]
