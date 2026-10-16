@@ -1,16 +1,14 @@
-import os
-import json
-from dotenv import load_dotenv
 import glob
+import os
+from typing import Any
+
 import tiktoken
-from typing import List, Dict, Any
+from dotenv import load_dotenv
 from langchain_core.documents import Document
 from langchain_experimental.text_splitter import SemanticChunker
 from langchain_openai import OpenAIEmbeddings
+
 from qdrant import initialize_qdrant_collection, save_windows_to_qdrant
-from ChainInvokeFunctions import (
-    retrieve_parent_documents,
-)
 
 load_dotenv()
 
@@ -32,7 +30,7 @@ def load_drill_log_document(file_path: str) -> Document:
     )
 
 
-def semantic_chunk_document(base_doc: Document) -> List[Document]:
+def semantic_chunk_document(base_doc: Document) -> list[Document]:
     """Split one drill log document into semantic child segments."""
     # Initialize the semantic chunker using OpenAI Embeddings
     # Uses a percentile threshold to split chunks dynamically when context shifts
@@ -46,10 +44,10 @@ def semantic_chunk_document(base_doc: Document) -> List[Document]:
 
 
 def build_dynamic_sliding_windows(
-    semantic_docs: List[Document],
+    semantic_docs: list[Document],
     max_window_tokens: int = 1500,
     overlap_tokens: int = 250,
-) -> List[Dict[str, Any]]:
+) -> list[dict[str, Any]]:
     """
     Bundles semantic chunks into an optimized sliding window to prevent LLM fatigue
     and ensure geological boundaries aren't aggressively truncated across prompts.
@@ -169,12 +167,10 @@ if __name__ == "__main__":
         #     extraction_result = execute_drill_log_scan(window)
         #     all_extracted_insights.append(extraction_result)
 
-
         qdrant_client = initialize_qdrant_collection()
 
-        #save to qDrant vector database
+        # save to qDrant vector database
         save_windows_to_qdrant(optimized_windows, qdrant_client)
-
 
     # if all_parent_documents:
     #     retrieval_query = input(

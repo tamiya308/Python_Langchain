@@ -3,7 +3,7 @@
 import json
 from dotenv import load_dotenv
 
-from ChainInvokeFunctions import execute_drill_log_scan, execute_mineral_scan
+from ChainInvokeFunctions import execute_search_mineral_conversational_output
 from qdrant import get_all_text_from_qdrant
 
 load_dotenv()
@@ -13,5 +13,5 @@ if __name__ == "__main__":
 
     for idx, item in enumerate(my_data):
         print(f"\n[Record #{idx + 1}] Scanning {item.get('source', 'Unknown')}")
-        result = execute_mineral_scan(item)
-        print(f"result: {json.dumps(result, indent=2)}")
+        result = execute_search_mineral_conversational_output(item)
+        print(f"***result: {json.dumps(result, indent=2)}")

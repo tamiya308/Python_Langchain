@@ -7,9 +7,11 @@ Elevation       : 345.2m RL
 Azimuth / Dip   : 180 deg / -60 deg
 Core Size       : HQ3 (61.1mm diameter)
 Date Logged     : 2026-10-02
-Logged By       : A. Field-Geologist
-Total Depth     : 25.00 meters
+Logged By       : A Field-Geologist
+Total Depth     : 60.00 meters
 --------------------------------------------------------------------------------
+
+SECTION 1: GEOLOGICAL LOG
 
 DEPTH INTERVAL (m)  | ROCK TYPE              | TEXTURE & GRAIN SIZE DESCRIPTION
 --------------------+------------------------+----------------------------------
@@ -30,6 +32,57 @@ DEPTH INTERVAL (m)  | ROCK TYPE              | TEXTURE & GRAIN SIZE DESCRIPTION
                     |                        | fine-grained. Dark green,
                     |                        | highly competent, minor
                     |                        | chlorite alteration on joint
-                    |                        | planes. EOH.
+                    |                        | planes.
 --------------------------------------------------------------------------------
-================================================================================
+25.00 - 31.60       | Sheared META-BASALT    | Moderately to strongly sheared
+                    |                        | fabric, fine-grained. Pale
+                    |                        | green sericite-carbonate
+                    |                        | alteration increasing towards
+                    |                        | the lower contact.
+--------------------------------------------------------------------------------
+31.60 - 34.80       | QUARTZ VEIN            | Massive milky white quartz,
+                    |                        | coarse crystalline texture.
+                    |                        | Laminated vein margins with
+                    |                        | 3-5% disseminated pyrite and
+                    |                        | trace arsenopyrite.
+--------------------------------------------------------------------------------
+34.80 - 47.50       | DOLERITE               | Fresh, medium-grained ophitic
+                    |                        | texture. Dark grey to black,
+                    |                        | massive and competent with
+                    |                        | rare calcite veinlets.
+--------------------------------------------------------------------------------
+47.50 - 60.00       | Quartz-Biotite SCHIST  | Fresh, well foliated, fine to
+                    |                        | medium grained. Weak
+                    |                        | silica-biotite alteration with
+                    |                        | no visible sulphides (EOH).
+
+SECTION 2: SAMPLING AND ASSAY RESULTS
+
+Half core samples were cut on site with an automatic core saw and submitted to
+the laboratory in Perth. Samples were dried, crushed to 2mm and pulverised to
+85% passing 75 microns. Gold was analysed by 50g fire assay with an AAS finish.
+Multi-element analysis used a four-acid digest with ICP-MS finish.
+
+SAMPLE ID   | FROM (m) | TO (m) | Au (g/t) | As (ppm) | COMMENT
+------------+----------+--------+----------+----------+-------------------------
+GR260101    | 24.00    | 25.00  | 0.04     | 12       | Background.
+GR260102    | 25.00    | 26.00  | 0.21     | 85       | Weakly anomalous.
+GR260103    | 28.00    | 29.00  | 0.68     | 240      | Anomalous gold.
+GR260104    | 30.00    | 31.60  | 1.35     | 610      | Mineralised shear.
+GR260105    | 31.60    | 32.60  | 4.82     | 1450     | High grade vein.
+GR260106    | 32.60    | 33.60  | 7.15     | 2210     | High grade vein.
+GR260107    | 33.60    | 34.80  | 2.96     | 980      | Vein lower margin.
+GR260108    | 34.80    | 36.00  | 0.09     | 30       | Background.
+
+Significant intercept: 4.20m @ 4.84 g/t Au from 30.60m, including 2.00m @ 5.99
+g/t Au from 31.60m.
+
+Quality control samples were inserted at a rate of one in twenty. Certified
+reference material GR-STD-04 returned 2.51 g/t Au against an expected value of
+2.48 g/t Au, and field blank GR-BLK-01 returned less than 0.01 g/t Au. Field
+duplicate results agreed with the original samples within ten percent.
+
+Recommendation: follow-up drilling is recommended 40m along strike to the east
+and 40m down dip to test the continuity of the high grade quartz vein.
+
+Log reviewed and approved by: Senior Project Geologist, 2026-10-05
