@@ -7,25 +7,87 @@ from qdrant_client.models import Distance, PointStruct, VectorParams
 
 
 COLLECTION_NAME = "optimized_windows"
+MINERAL_COLLECTION_NAME = "mineral_summary"
 VECTOR_SIZE = 384
 EMBEDDING_MODEL = "text-embedding-3-small"
 
 
-def initialize_qdrant_collection() -> QdrantClient:
+def initialize_qdrant_collection(collection_name: str = COLLECTION_NAME) -> QdrantClient:
     qdrant_client = QdrantClient(host="localhost", port=6333)
 
-    if not qdrant_client.collection_exists(collection_name=COLLECTION_NAME):
-        print(f"Collection '{COLLECTION_NAME}' not found. Creating a new one...")
+    if not qdrant_client.collection_exists(collection_name=collection_name):
+        print(f"Collection '{collection_name}' not found. Creating a new one...")
         qdrant_client.create_collection(
-            collection_name=COLLECTION_NAME,
+            collection_name=collection_name,
             vectors_config=VectorParams(
                 size=VECTOR_SIZE,
                 distance=Distance.COSINE,
             ),
         )
-        print(f"Collection '{COLLECTION_NAME}' created successfully.")
+        print(f"Collection '{collection_name}' created successfully.")
 
     return qdrant_client
+
+
+def save_mineral_summaries_to_qdrant(
+    hole_summaries: List[Dict[str, Any]], qdrant_client: QdrantClient
+) -> None:
+    """
+    Saves one point per drill hole into the mineral summary collection.
+    The point id is based on the source filename, so re-running the import
+    replaces a hole's summary instead of adding a duplicate.
+    """
+    if not hole_summaries:
+        print("No mineral summaries to upload.")
+        return
+
+    # A short text version of each summary, so the summaries can also be searched by meaning
+    texts = []
+    for summary in hole_summaries:
+        minerals = sorted({row["mineral"] for row in summary["minerals"]})
+        texts.append(
+            f"Drill hole {summary['hole_id']} minerals: {', '.join(minerals) or 'none recorded'}"
+        )
+
+    embeddings = OpenAIEmbeddings(model=EMBEDDING_MODEL, dimensions=VECTOR_SIZE)
+    vectors = embeddings.embed_documents(texts)
+
+    points = [
+        PointStruct(
+            id=str(uuid.uuid5(uuid.NAMESPACE_URL, summary["source"])),
+            vector=vector,
+            payload=summary,
+        )
+        for summary, vector in zip(hole_summaries, vectors)
+    ]
+
+    print(f"Uploading {len(points)} mineral summaries to Qdrant...")
+    qdrant_client.upsert(
+        collection_name=MINERAL_COLLECTION_NAME, wait=True, points=points
+    )
+
+
+def get_mineral_summaries(host="localhost", port=6333) -> List[Dict[str, Any]]:
+    """Returns every drill hole's mineral summary (one record per hole)."""
+    client = QdrantClient(host=host, port=port)
+    if not client.collection_exists(collection_name=MINERAL_COLLECTION_NAME):
+        return []
+
+    summaries = []
+    offset = None
+    while True:
+        records, offset = client.scroll(
+            collection_name=MINERAL_COLLECTION_NAME,
+            limit=100,
+            offset=offset,
+            with_payload=True,
+            with_vectors=False,
+        )
+        summaries.extend(record.payload for record in records)
+        if offset is None:
+            break
+
+    return summaries
 
 
 def save_windows_to_qdrant(

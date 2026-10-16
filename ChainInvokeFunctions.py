@@ -75,6 +75,31 @@ class DrillHoleLog(BaseModel):
     )
 
 
+class MineralOccurrence(BaseModel):
+    hole_id: str = Field(description="The identifier of the drill hole, e.g., DDH-26-01.")
+    mineral: str = Field(
+        description="Element symbol and name, or mineral name, e.g., 'Au (gold)', 'As (arsenic)', 'pyrite'."
+    )
+    amount: float | None = Field(
+        description="The amount found as a number, or null if only noted without a value (e.g., 'trace')."
+    )
+    unit: str = Field(
+        description="Unit of the amount, e.g., 'g/t', 'ppm', '%', or 'trace' when no number is given."
+    )
+    from_depth: float = Field(description="Start depth of the interval in meters.")
+    to_depth: float = Field(description="End depth of the interval in meters.")
+    basis: str = Field(
+        description="'assay' for laboratory results, or 'visual' for minerals noted in the geological log."
+    )
+
+
+class MineralSummary(BaseModel):
+    hole_id: str = Field(description="The identifier of the drill hole, e.g., DDH-26-01.")
+    occurrences: list[MineralOccurrence] = Field(
+        description="Every mineral or element occurrence found anywhere in the drill log, one per interval or sample."
+    )
+
+
 def retrieve_parent_documents(
     parent_docs: list[Document], semantic_docs: list[Document], query: str, k: int = 4
 ) -> list[Document]:
@@ -234,3 +259,45 @@ def execute_search_mineral_structured_output(
     except Exception as e:
         print(f"error: {e!s} \n")
         return ""
+
+
+def execute_mineral_summary(
+    source: str, content: str, model_name: str = "gpt-4o-mini"
+) -> dict[str, Any]:
+    """Extract every mineral occurrence (assay or visual) from one complete drill log file.
+
+    Returns {"hole_id": ..., "source": ..., "minerals": [one dict per occurrence]}.
+    """
+    prompt = ChatPromptTemplate.from_messages(
+        [
+            (
+                "system",
+                (
+                    "You are an expert exploration geologist. Read the COMPLETE drill log and list EVERY mineral "
+                    "or element occurrence into the structured schema, one row per sample or interval. "
+                    "Include laboratory assay results (e.g., Au, As) with basis 'assay', and minerals noted in the "
+                    "geological descriptions (e.g., pyrite, chalcopyrite) with basis 'visual'. "
+                    "Do not include rock types or alteration minerals such as chlorite, biotite or sericite. "
+                    "Only use values written in the log. If the log gives a range (e.g., '3-5%'), use the midpoint "
+                    "as the amount. If no minerals are recorded, return an empty list."
+                ),
+            ),
+            ("human", "Log Source: {source}\n\nContent:\n{content}"),
+        ]
+    )
+
+    llm = ChatOpenAI(model=model_name, temperature=0.0)
+    chain = prompt | llm.with_structured_output(MineralSummary)
+
+    try:
+        result = chain.invoke({"source": source, "content": content})
+        rows = [occurrence.model_dump() for occurrence in result.occurrences]
+        for row in rows:
+            row["hole_id"] = result.hole_id
+            # a "trace" mention has no measured amount, so don't let the LLM report it as 0
+            if row["unit"] == "trace":
+                row["amount"] = None
+        return {"hole_id": result.hole_id, "source": source, "minerals": rows}
+    except Exception as e:
+        print(f"error: Failed mineral summary for {source}: {e!s} \n")
+        return {"hole_id": "Unknown", "source": source, "minerals": []}

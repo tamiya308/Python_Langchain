@@ -1,9 +1,8 @@
-
-
 import json
+
 from dotenv import load_dotenv
 
-from ChainInvokeFunctions import execute_search_mineral, execute_mineral_scan
+from ChainInvokeFunctions import execute_search_mineral
 from qdrant import get_all_text_from_qdrant
 
 load_dotenv()
