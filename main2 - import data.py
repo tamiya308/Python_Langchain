@@ -146,6 +146,9 @@ if __name__ == "__main__":
     all_parent_documents = []
     all_semantic_segments = []
 
+    mineralSummary_client = initialize_qdrant_collection(MINERAL_COLLECTION_NAME)
+    qdrant_client = initialize_qdrant_collection()
+
     for file_path in target_files:
         print(f"📖 Scanning: {os.path.basename(file_path)}")
 
@@ -159,10 +162,8 @@ if __name__ == "__main__":
         )
         print(f"   ├─ Found {len(hole_summary['minerals'])} mineral occurrences.")
 
-        mineral_client = initialize_qdrant_collection(MINERAL_COLLECTION_NAME)
-
         # save one summary per drill hole to Qdrant, so "main5 - RAG.py" can compare every hole
-        save_mineral_summary_to_qdrant(hole_summary, mineral_client)
+        save_mineral_summary_to_qdrant(hole_summary, mineralSummary_client)
 
         semantic_segments = semantic_chunk_document(parent_document)
         all_semantic_segments.extend(semantic_segments)
@@ -176,8 +177,6 @@ if __name__ == "__main__":
 
         print(f"   ├─ Extracted {len(semantic_segments)} semantic segments.")
         print(f"   ├─ Packed into {len(optimized_windows)} sliding window prompts.")
-
-        qdrant_client = initialize_qdrant_collection()
 
         # save to qDrant vector database
         save_windows_to_qdrant(optimized_windows, qdrant_client)

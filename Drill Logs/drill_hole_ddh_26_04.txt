@@ -1,0 +1,87 @@
+================================================================================
+DIAMOND CORE DRILL LOG: DDH-26-04
+================================================================================
+Prospect        : Golden Ridge Prospect
+Eastings/Northings: E: 412940.50 | N: 6184100.20
+Elevation       : 346.0m RL
+Azimuth / Dip   : 180 deg / -60 deg
+Core Size       : HQ3 (61.1mm diameter)
+Date Logged     : 2026-10-15
+Logged By       : A Field-Geologist
+Total Depth     : 72.00 meters
+--------------------------------------------------------------------------------
+
+SECTION 1: GEOLOGICAL LOG
+
+DEPTH INTERVAL (m)  | ROCK TYPE              | TEXTURE & GRAIN SIZE DESCRIPTION
+--------------------+------------------------+----------------------------------
+0.00 - 4.80         | Clayey SAPROLITE       | Highly weathered, earthy
+                    |                        | texture, completely
+                    |                        | fine-grained. Yellow-brown
+                    |                        | mottled clay with iron oxide
+                    |                        | staining and relict quartz.
+--------------------------------------------------------------------------------
+4.80 - 18.60        | Quartz-Biotite SCHIST  | Fresh, strongly foliated
+                    |                        | texture, fine-to-medium
+                    |                        | grained. Aligned biotite
+                    |                        | flakes with thin quartz bands
+                    |                        | and rare garnet porphyroblasts.
+--------------------------------------------------------------------------------
+18.60 - 30.40       | META-BASALT            | Fresh, crystalline-granular
+                    |                        | texture, fine-grained. Dark
+                    |                        | green, highly competent, with
+                    |                        | trace pyrrhotite on fracture
+                    |                        | surfaces.
+--------------------------------------------------------------------------------
+30.40 - 38.20       | Sheared META-BASALT    | Moderately to strongly sheared
+                    |                        | fabric, fine-grained. Pale
+                    |                        | green sericite-carbonate
+                    |                        | alteration with 1-2% pyrrhotite
+                    |                        | along the foliation.
+--------------------------------------------------------------------------------
+38.20 - 41.90       | QUARTZ VEIN            | Massive smoky grey quartz,
+                    |                        | coarse crystalline texture.
+                    |                        | Banded vein margins with 2-4%
+                    |                        | chalcopyrite, 1-3% pyrite and
+                    |                        | trace visible gold at 39.60m.
+--------------------------------------------------------------------------------
+41.90 - 56.30       | DOLERITE               | Fresh, medium-grained ophitic
+                    |                        | texture. Dark grey to black,
+                    |                        | massive and competent with
+                    |                        | minor magnetite and calcite.
+--------------------------------------------------------------------------------
+56.30 - 72.00       | Quartz-Biotite SCHIST  | Fresh, well foliated, fine to
+                    |                        | medium grained. Weak
+                    |                        | silica-biotite alteration with
+                    |                        | no visible sulphides (EOH).
+
+SECTION 2: SAMPLING AND ASSAY RESULTS
+
+Half core samples were cut on site with an automatic core saw and submitted to
+the laboratory in Perth. Samples were dried, crushed to 2mm and pulverised to
+85% passing 75 microns. Gold was analysed by 50g fire assay with an AAS finish.
+Copper was analysed by a four-acid digest with ICP-MS finish.
+
+SAMPLE ID   | FROM (m) | TO (m) | Au (g/t) | Cu (ppm) | COMMENT
+------------+----------+--------+----------+----------+-------------------------
+GR260401    | 34.00    | 35.00  | 0.03     | 60       | Background.
+GR260402    | 36.00    | 37.00  | 0.19     | 210      | Weakly anomalous.
+GR260403    | 37.00    | 38.20  | 0.82     | 680      | Mineralised shear.
+GR260404    | 38.20    | 39.20  | 3.64     | 2850     | High grade vein.
+GR260405    | 39.20    | 40.20  | 9.27     | 4120     | Visible gold noted.
+GR260406    | 40.20    | 41.00  | 5.11     | 3360     | High grade vein.
+GR260407    | 41.00    | 41.90  | 1.88     | 1240     | Vein lower margin.
+GR260408    | 41.90    | 43.00  | 0.07     | 95       | Background.
+
+Significant intercept: 4.90m @ 4.02 g/t Au from 37.00m, including 2.80m @ 6.07
+g/t Au from 38.20m.
+
+Quality control samples were inserted at a rate of one in twenty. Certified
+reference material GR-STD-04 returned 2.45 g/t Au against an expected value of
+2.48 g/t Au, and field blank GR-BLK-01 returned less than 0.01 g/t Au. Field
+duplicate results agreed with the original samples within ten percent.
+
+Recommendation: the vein continues 40m east of DDH-26-01 with higher copper.
+Further drilling is recommended 80m down dip to test the gold-copper zone.
+
+Log reviewed and approved by: Senior Project Geologist, 2026-10-17
