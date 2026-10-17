@@ -29,41 +29,30 @@ def initialize_qdrant_collection(collection_name: str = COLLECTION_NAME) -> Qdra
     return qdrant_client
 
 
-def save_mineral_summaries_to_qdrant(
-    hole_summaries: List[Dict[str, Any]], qdrant_client: QdrantClient
+def save_mineral_summary_to_qdrant(
+    hole_summary: Dict[str, Any], qdrant_client: QdrantClient
 ) -> None:
     """
-    Saves one point per drill hole into the mineral summary collection.
+    Saves one drill hole's summary as a point in the mineral summary collection.
     The point id is based on the source filename, so re-running the import
     replaces a hole's summary instead of adding a duplicate.
     """
-    if not hole_summaries:
-        print("No mineral summaries to upload.")
-        return
-
-    # A short text version of each summary, so the summaries can also be searched by meaning
-    texts = []
-    for summary in hole_summaries:
-        minerals = sorted({row["mineral"] for row in summary["minerals"]})
-        texts.append(
-            f"Drill hole {summary['hole_id']} minerals: {', '.join(minerals) or 'none recorded'}"
-        )
+    # A short text version of the summary, so the summaries can also be searched by meaning
+    minerals = sorted({row["mineral"] for row in hole_summary["minerals"]})
+    text = f"Drill hole {hole_summary['hole_id']} minerals: {', '.join(minerals) or 'none recorded'}"
 
     embeddings = OpenAIEmbeddings(model=EMBEDDING_MODEL, dimensions=VECTOR_SIZE)
-    vectors = embeddings.embed_documents(texts)
+    vector = embeddings.embed_query(text)
 
-    points = [
-        PointStruct(
-            id=str(uuid.uuid5(uuid.NAMESPACE_URL, summary["source"])),
-            vector=vector,
-            payload=summary,
-        )
-        for summary, vector in zip(hole_summaries, vectors)
-    ]
+    point = PointStruct(
+        id=str(uuid.uuid5(uuid.NAMESPACE_URL, hole_summary["source"])),
+        vector=vector,
+        payload=hole_summary,
+    )
 
-    print(f"Uploading {len(points)} mineral summaries to Qdrant...")
+    print(f"Uploading mineral summary for {hole_summary['source']} to Qdrant...")
     qdrant_client.upsert(
-        collection_name=MINERAL_COLLECTION_NAME, wait=True, points=points
+        collection_name=MINERAL_COLLECTION_NAME, wait=True, points=[point]
     )
 
 

@@ -76,7 +76,9 @@ class DrillHoleLog(BaseModel):
 
 
 class MineralOccurrence(BaseModel):
-    hole_id: str = Field(description="The identifier of the drill hole, e.g., DDH-26-01.")
+    hole_id: str = Field(
+        description="The identifier of the drill hole, e.g., DDH-26-01."
+    )
     mineral: str = Field(
         description="Element symbol and name, or mineral name, e.g., 'Au (gold)', 'As (arsenic)', 'pyrite'."
     )
@@ -94,7 +96,9 @@ class MineralOccurrence(BaseModel):
 
 
 class MineralSummary(BaseModel):
-    hole_id: str = Field(description="The identifier of the drill hole, e.g., DDH-26-01.")
+    hole_id: str = Field(
+        description="The identifier of the drill hole, e.g., DDH-26-01."
+    )
     occurrences: list[MineralOccurrence] = Field(
         description="Every mineral or element occurrence found anywhere in the drill log, one per interval or sample."
     )

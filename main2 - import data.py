@@ -1,4 +1,3 @@
-import csv
 import glob
 import os
 from typing import Any
@@ -13,12 +12,9 @@ from ChainInvokeFunctions import execute_mineral_summary
 from qdrant import (
     MINERAL_COLLECTION_NAME,
     initialize_qdrant_collection,
-    save_mineral_summaries_to_qdrant,
+    save_mineral_summary_to_qdrant,
     save_windows_to_qdrant,
 )
-
-MINERAL_SUMMARY_FILE = "./Output/mineral_summary.csv"
-MINERAL_COLUMNS = ["hole_id", "mineral", "amount", "unit", "from_depth", "to_depth", "basis"]
 
 load_dotenv()
 
@@ -139,32 +135,6 @@ def build_dynamic_sliding_windows(
     return windows
 
 
-def print_mineral_summary(rows: list[dict[str, Any]]) -> None:
-    """Print the mineral summary rows as a table in the console."""
-    if not rows:
-        print("No minerals found in any drill log.")
-        return
-
-    print(
-        f"{'HOLE':<12}{'MINERAL':<20}{'AMOUNT':>10} {'UNIT':<8}{'DEPTH (m)':<16}{'BASIS'}"
-    )
-    print("-" * 74)
-    for row in rows:
-        amount = "-" if row["amount"] is None else f"{row['amount']:g}"
-        depth = f"{row['from_depth']:g} - {row['to_depth']:g}"
-        print(
-            f"{row['hole_id']:<12}{row['mineral']:<20}{amount:>10} {row['unit']:<8}{depth:<16}{row['basis']}"
-        )
-
-
-def save_mineral_summary(rows: list[dict[str, Any]], file_path: str) -> None:
-    """Save the mineral summary rows to a CSV file (opens in Excel)."""
-    with open(file_path, "w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=MINERAL_COLUMNS)
-        writer.writeheader()
-        writer.writerows(rows)
-
-
 if __name__ == "__main__":
     # Point this to your directory where files are stored (e.g. current path)
     log_files_directory = "./Drill Logs"
@@ -175,7 +145,6 @@ if __name__ == "__main__":
     all_extracted_insights = []
     all_parent_documents = []
     all_semantic_segments = []
-    all_hole_summaries = []
 
     for file_path in target_files:
         print(f"📖 Scanning: {os.path.basename(file_path)}")
@@ -188,9 +157,12 @@ if __name__ == "__main__":
         hole_summary = execute_mineral_summary(
             parent_document.metadata["source"], parent_document.page_content
         )
-        all_hole_summaries.append(hole_summary)
         print(f"   ├─ Found {len(hole_summary['minerals'])} mineral occurrences.")
 
+        mineral_client = initialize_qdrant_collection(MINERAL_COLLECTION_NAME)
+
+        # save one summary per drill hole to Qdrant, so "main5 - RAG.py" can compare every hole
+        save_mineral_summary_to_qdrant(hole_summary, mineral_client)
 
         semantic_segments = semantic_chunk_document(parent_document)
         all_semantic_segments.extend(semantic_segments)
@@ -205,47 +177,9 @@ if __name__ == "__main__":
         print(f"   ├─ Extracted {len(semantic_segments)} semantic segments.")
         print(f"   ├─ Packed into {len(optimized_windows)} sliding window prompts.")
 
-        # Convert windows into json formatted string
-        # for idx, window in enumerate(optimized_windows):
-        #     print(
-        #         f"   │  └─ Processing window {idx+1}/{len(optimized_windows)} ({window['token_count']} tokens)..."
-        #     )
-        #     extraction_result = execute_drill_log_scan(window)
-        #     all_extracted_insights.append(extraction_result)
-
         qdrant_client = initialize_qdrant_collection()
 
         # save to qDrant vector database
         save_windows_to_qdrant(optimized_windows, qdrant_client)
 
-    # if all_parent_documents:
-    #     retrieval_query = input(
-    #         "\nEnter a question to retrieve relevant drill-log context: "
-    #     ).strip()
-    #     if not retrieval_query:
-    #         raise ValueError("The retrieval query cannot be empty.")
-
-    #     retrieved_parents = retrieve_parent_documents(
-    #         all_parent_documents, all_semantic_segments, retrieval_query
-    #     )
-    #     print(f"\n🔎 Retrieved {len(retrieved_parents)} relevant drill-log files:")
-    #     for idx, parent in enumerate(retrieved_parents, start=1):
-    #         print(f"\n--- Retrieved parent {idx} ---")
-    #         print(f"Source: {parent.metadata.get('source', 'Unknown')}")
-    #         print(parent.page_content)
-
-    all_mineral_rows = [row for s in all_hole_summaries for row in s["minerals"]]
-
-    print("\n⛏️  Mineral Summary:")
-    print_mineral_summary(all_mineral_rows)
-    save_mineral_summary(all_mineral_rows, MINERAL_SUMMARY_FILE)
-    print(f"\n💾 Saved mineral summary to {MINERAL_SUMMARY_FILE}")
-
-    # save one summary per drill hole to Qdrant, so "main5 - RAG.py" can compare every hole
-    mineral_client = initialize_qdrant_collection(MINERAL_COLLECTION_NAME)
-    save_mineral_summaries_to_qdrant(all_hole_summaries, mineral_client)
-
     print("\n✅ Execution Finished! Sample Data Extracted:")
-    # print(f"Total records processed: {len(all_extracted_insights)}")
-
-    # print(json.dumps(all_extracted_insights, indent=2))
