@@ -1,18 +1,83 @@
-import importlib
-
 from dotenv import load_dotenv
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_core.tools import tool
-from langchain_openai import ChatOpenAI
+from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+from qdrant_client import QdrantClient
 
-from qdrant import OPTIMIZED_WINDOWS_COLLECTION_NAME, MINERAL_COLLECTION_NAME, get_mineral_summaries
-
-# reuse the retrieval & table logic from main5 (the filename has spaces, so a normal import won't work)
-rag = importlib.import_module("main5 - RAG")
+from qdrant import (
+    EMBEDDING_MODEL,
+    MINERAL_COLLECTION_NAME,
+    OPTIMIZED_WINDOWS_COLLECTION_NAME,
+    TEXT_VECTOR_NAME,
+    VECTOR_SIZE,
+    get_mineral_summaries,
+)
 
 load_dotenv()
 
 MAX_STEPS = 6  # safety limit on how many rounds of tool calls the agent may make
+TOP_K = 3  # default number of closest windows search_drill_logs returns
+
+
+def retrieve_windows(question: str, top_k: int = TOP_K) -> list[dict]:
+    """Step 1 (Retrieval): find the windows in Qdrant closest in meaning to the question."""
+    # Embed the question with the SAME model & size used to store the windows,
+    # otherwise the numbers aren't comparable (and Qdrant rejects the size)
+    embeddings = OpenAIEmbeddings(model=EMBEDDING_MODEL, dimensions=VECTOR_SIZE)
+    question_vector = embeddings.embed_query(question)
+
+    client = QdrantClient(host="localhost", port=6333)
+    response = client.query_points(
+        collection_name=OPTIMIZED_WINDOWS_COLLECTION_NAME,
+        query=question_vector,
+        using=TEXT_VECTOR_NAME,  # search the drill log text, not the drill images
+        limit=top_k,
+        with_payload=True,
+    )
+
+    return [{"score": point.score, **point.payload} for point in response.points]
+
+
+def build_mineral_table(hole_summaries: list[dict]) -> str:
+    """
+    Turns every hole's mineral summary into a short table of exact figures.
+    The maths is done here in Python (not by the LLM), so comparisons like
+    "most gold" are based on correct numbers for EVERY hole.
+    """
+    lines = []
+    for summary in sorted(hole_summaries, key=lambda s: s["hole_id"]):
+        hole = summary["hole_id"]
+        if not summary["minerals"]:
+            lines.append(f"{hole} | no minerals recorded")
+            continue
+
+        # group the rows for this hole by mineral (e.g. all the Au samples together)
+        groups: dict[tuple, list[dict]] = {}
+        for row in summary["minerals"]:
+            key = (row["mineral"], row["unit"], row["basis"])
+            groups.setdefault(key, []).append(row)
+
+        for (mineral, unit, basis), rows in groups.items():
+            measured = [r for r in rows if r["amount"] is not None]
+            if not measured:
+                depths = ", ".join(f"{r['from_depth']:g}-{r['to_depth']:g}m" for r in rows)
+                lines.append(f"{hole} | {mineral} | {basis} | noted ({unit}) at {depths}")
+                continue
+
+            best = max(measured, key=lambda r: r["amount"])
+            metres = sum(r["to_depth"] - r["from_depth"] for r in measured)
+            weighted_avg = (
+                sum(r["amount"] * (r["to_depth"] - r["from_depth"]) for r in measured) / metres
+                if metres
+                else best["amount"]
+            )
+            lines.append(
+                f"{hole} | {mineral} | {basis} | {len(measured)} samples over {metres:g}m | "
+                f"highest {best['amount']:g} {unit} at {best['from_depth']:g}-{best['to_depth']:g}m | "
+                f"length-weighted average {weighted_avg:.2f} {unit}"
+            )
+
+    return "\n".join(lines)
 
 
 # ---------------------------------------------------------------------------
@@ -22,13 +87,13 @@ MAX_STEPS = 6  # safety limit on how many rounds of tool calls the agent may mak
 
 
 @tool
-def search_drill_logs(query: str, top_k: int = 3) -> str:
+def search_drill_logs(query: str, top_k: int = TOP_K) -> str:
     """Semantic search over the raw drill-log text (the 'optimized_windows' collection).
     Use for descriptive questions: lithology, alteration, veining, what was observed at
     a given depth or in a given hole. Returns only the few passages closest to the query,
     so it is NOT suitable for comparing all holes. You may call it several times with
     different, more specific queries (e.g. include the hole id)."""
-    windows = rag.retrieve_windows(query, top_k=top_k)
+    windows = retrieve_windows(query, top_k=top_k)
     if not windows:
         return f"No data found in '{OPTIMIZED_WINDOWS_COLLECTION_NAME}'."
     return "\n\n=====\n\n".join(
@@ -46,7 +111,7 @@ def get_mineral_table() -> str:
     summaries = get_mineral_summaries()
     if not summaries:
         return f"No mineral summaries found in '{MINERAL_COLLECTION_NAME}'."
-    return rag.build_mineral_table(summaries)
+    return build_mineral_table(summaries)
 
 
 TOOLS = {t.name: t for t in [search_drill_logs, get_mineral_table]}

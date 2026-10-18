@@ -170,7 +170,7 @@ if __name__ == "__main__":
         )
         print(f"   ├─ Found {len(hole_summary['minerals'])} mineral occurrences.")
 
-        # save one summary per drill hole to Qdrant, so "main5 - RAG.py" can compare every hole
+        # save one summary per drill hole to Qdrant, so "main6 - agentic RAG.py" can compare every hole
         save_mineral_summary_to_qdrant(hole_summary, mineralSummary_client)
 
         semantic_segments = semantic_chunk_document(parent_document)
