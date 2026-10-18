@@ -66,38 +66,27 @@ def build_dynamic_sliding_windows(
     current_window_docs = []
     current_window_tokens = 0
 
+    def close_window() -> None:
+        """Join the active window's chunks into one window record."""
+        window_text = "\n\n--- [Semantic Context Shift] ---\n\n".join(
+            [d.page_content for d in current_window_docs]
+        )
+        windows.append(
+            {
+                "source": current_window_docs[0].metadata.get("source", "Unknown"),
+                "content": window_text,
+                "token_count": current_window_tokens,
+            }
+        )
+
     for doc in semantic_docs:
         doc_tokens = count_tokens(doc.page_content)
 
-        # If a single semantic chunk is exceptionally long, handle separately
-        if doc_tokens > max_window_tokens:
-            windows.append(
-                {
-                    "source": doc.metadata.get("source", "Unknown"),
-                    "content": doc.page_content,
-                    "token_count": doc_tokens,
-                }
-            )
-            continue
-
-        if current_window_tokens + doc_tokens > max_window_tokens:
-            # Consolidate the active window text before slicing forward
-            window_text = "\n\n--- [Semantic Context Shift] ---\n\n".join(
-                [d.page_content for d in current_window_docs]
-            )
-
-            windows.append(
-                {
-                    # FIXED: Pulls source safely from the first document inside the active window queue
-                    "source": (
-                        current_window_docs[0].metadata.get("source", "Unknown")
-                        if current_window_docs
-                        else "Unknown"
-                    ),
-                    "content": window_text,
-                    "token_count": current_window_tokens,
-                }
-            )
+        # Close the active window when this chunk won't fit. A chunk longer than
+        # max_window_tokens is never split: it closes the active window first (so windows
+        # stay in log order) and then gets a window of its own, with the usual overlap.
+        if current_window_docs and current_window_tokens + doc_tokens > max_window_tokens:
+            close_window()
 
             # Slide window back by applying overlap to retain continuity
             overlap_docs = []
@@ -118,21 +107,7 @@ def build_dynamic_sliding_windows(
 
     # Flush remaining documents
     if current_window_docs:
-        window_text = "\n\n--- [Semantic Context Shift] ---\n\n".join(
-            [d.page_content for d in current_window_docs]
-        )
-        windows.append(
-            {
-                # FIXED: Added safe .get() access to prevent crashes on the last chunk
-                "source": (
-                    semantic_docs[0].metadata.get("source", "Unknown")
-                    if semantic_docs
-                    else "Unknown"
-                ),
-                "content": window_text,
-                "token_count": current_window_tokens,
-            }
-        )
+        close_window()
 
         print(f"***windows: {windows}")
 
@@ -194,8 +169,16 @@ if __name__ == "__main__":
     image_files = glob.glob(os.path.join(images_directory, "drill_hole_*.jpg"))
     print(f"\n🖼️ Discovered {len(image_files)} drill images.\n")
 
+    # only import images whose drill hole has a log in log_files_directory
+    # (e.g. drill_hole_ddh_26_01.jpg needs drill_hole_ddh_26_01.txt)
+    logged_holes = {os.path.splitext(os.path.basename(f))[0] for f in target_files}
+
     for image_path in image_files:
         source = os.path.basename(image_path)
+        if os.path.splitext(source)[0] not in logged_holes:
+            print(f"⏭️ Skipping {source}: no matching drill log.")
+            continue
+
         print(f"🖼️ Describing: {source}")
         description = execute_drill_image_description(source, image_path)
         save_drill_image_to_qdrant(source, image_path, description, qdrant_client)
