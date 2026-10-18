@@ -44,36 +44,6 @@ class LogScanRecord(BaseModel):
 # Rebuild schema to safely handle typing references and fix the PydanticUserError crash
 LogScanRecord.model_rebuild()
 
-from pydantic import BaseModel, Field
-
-
-class IntervalLog(BaseModel):
-    start_depth: float = Field(
-        description="The starting depth of the interval in meters."
-    )
-    end_depth: float = Field(description="The ending depth of the interval in meters.")
-    rock_type: str = Field(description="The classification or type of rock/lithology.")
-    description: str = Field(
-        description="Full text describing texture, grain size, and alteration."
-    )
-
-
-class DrillHoleLog(BaseModel):
-    hole_id: str = Field(
-        description="The identifier of the drill hole, e.g., DDH-26-01."
-    )
-    prospect: str = Field(description="The name of the exploration prospect area.")
-    eastings: float = Field(description="The grid Easting coordinate.")
-    northings: float = Field(description="The grid Northing coordinate.")
-    elevation: float = Field(description="The elevation or RL value in meters.")
-    azimuth: float = Field(description="The azimuth direction in degrees.")
-    dip: float = Field(description="The dip angle in degrees (usually negative).")
-    total_depth: float = Field(description="The total depth of the hole in meters.")
-    intervals: list[IntervalLog] = Field(
-        description="The sequential list of all logged geological depth intervals."
-    )
-
-
 class MineralOccurrence(BaseModel):
     hole_id: str = Field(
         description="The identifier of the drill hole, e.g., DDH-26-01."
@@ -152,94 +122,6 @@ def retrieve_parent_documents(
     return retriever.invoke(query)
 
 
-def execute_drill_log_scan(
-    window_payload: dict[str, Any], model_name: str = "gpt-4o-mini"
-) -> dict[str, Any]:
-    """Extract structured geological attributes from one text window."""
-    prompt = ChatPromptTemplate.from_messages(
-        [
-            (
-                "system",
-                "You are an expert production geologist mining parser. Analyse the following raw drill log window segment. "
-                "Extract the core structural geological attributes cleanly into JSON format according to schema instructions. "
-                "If metadata fields or classifications are missing from this specific window block, label as 'Context Missing'.",
-            ),
-            ("human", "Log Segment Source: {source}\n\nContent:\n{content}"),
-        ]
-    )
-
-    llm = ChatOpenAI(model=model_name, temperature=0.0)
-    chain = prompt | llm.with_structured_output(LithologyExtraction)
-
-    try:
-        result = chain.invoke(
-            {
-                "source": window_payload["source"],
-                "content": window_payload["content"],
-            }
-        )
-        return result.model_dump()
-    except Exception as e:
-        return {"error": f"Failed extraction window: {e!s}"}
-
-
-def execute_hole_data_scan(
-    window_payload: dict[str, Any], model_name: str = "gpt-4o-mini"
-) -> dict[str, Any]:
-    """Extract structured geological attributes from one text window."""
-    prompt = ChatPromptTemplate.from_messages(
-        [
-            (
-                "system",
-                "What is the total depth of the hole, and what rock type is found at the End of Hole (EOH)?",
-            ),
-            ("human", "Log Segment Source: {source}\n\nContent:\n{content}"),
-        ]
-    )
-
-    llm = ChatOpenAI(model=model_name, temperature=0.0)
-    chain = prompt | llm.with_structured_output(LogScanRecord)
-
-    try:
-        print(f"window_payload: {window_payload}\n")
-        result = chain.invoke(
-            {"source": window_payload["source"], "content": window_payload["content"]}
-        )
-        return result.model_dump()
-    except Exception as e:
-        return {"error": f"Failed extraction window: {e!s}"}
-
-
-def execute_search_mineral_structured_output(
-    window_payload: dict[str, Any], model_name: str = "gpt-4o-mini"
-) -> dict[str, Any]:
-    """Extract structured geological attributes from one text window."""
-    prompt = ChatPromptTemplate.from_messages(
-        [
-            (
-                "system",
-                "Extract EVERY depth interval from the provided drill log document into the structured schema. No conversational output.",
-            ),
-            ("human", "Log Segment Source: {source}\n\nContent:\n{content}"),
-        ]
-    )
-
-    llm = ChatOpenAI(model=model_name, temperature=0.0, max_completion_tokens=4000)
-
-    try:
-        chain = prompt | llm.with_structured_output(DrillHoleLog, strict=False)
-
-        # print(f"window_payload: {window_payload}\n")
-        result = chain.invoke(
-            {"source": window_payload["source"], "content": window_payload["content"]}
-        )
-        print(f"***raw output: {result}\n")
-        return result
-    except Exception as e:
-        print(f"error: {e!s} \n")
-        return ""
-
-
 def execute_mineral_summary(
     source: str, content: str, model_name: str = "gpt-4o-mini"
 ) -> dict[str, Any]:
@@ -291,6 +173,7 @@ def execute_drill_image_description(
     far better than a pixel embedding would.
     """
     import base64
+
     from langchain_core.messages import HumanMessage, SystemMessage
 
     with open(image_path, "rb") as f:
