@@ -10,12 +10,21 @@ MINERAL_COLLECTION_NAME = "mineral_summary"
 VECTOR_SIZE = 384
 EMBEDDING_MODEL = "text-embedding-3-small"
 
+# named vectors inside the optimized_windows collection
+TEXT_VECTOR_NAME = "text"  # drill log text windows
+IMAGE_VECTOR_NAME = "image"  # drill hole strip-log images (embedded from their description)
 
-def initialize_qdrant_collection(collection_name: str) -> QdrantClient:
+
+def initialize_qdrant_collection(
+    collection_name: str, vector_names: list[str] | None = None
+) -> QdrantClient:
     """
     Gives a fresh, empty collection. If the collection already exists it is deleted
     first, which removes all of its points (and the segments/shards that store them),
     so a re-import never mixes old and new data.
+
+    Pass vector_names to create one named vector per name (e.g. "text" and "image");
+    otherwise the collection has a single unnamed vector.
     """
     qdrant_client = QdrantClient(host="localhost", port=6333)
 
@@ -25,11 +34,13 @@ def initialize_qdrant_collection(collection_name: str) -> QdrantClient:
 
     # recreating also picks up any change to VECTOR_SIZE
     print(f"Creating collection '{collection_name}'...")
+    vector_params = VectorParams(size=VECTOR_SIZE, distance=Distance.COSINE)
     qdrant_client.create_collection(
         collection_name=collection_name,
-        vectors_config=VectorParams(
-            size=VECTOR_SIZE,
-            distance=Distance.COSINE,
+        vectors_config=(
+            {name: vector_params for name in vector_names}
+            if vector_names
+            else vector_params
         ),
     )
     print(f"Collection '{collection_name}' created successfully.")
@@ -115,6 +126,7 @@ def save_windows_to_qdrant(
     points = []
     for idx, (window, vector) in enumerate(zip(optimized_windows, vectors)):
         payload = {
+            "type": "text",
             "window_id": window.get("id", idx),
             "start_time": window.get("start_time"),
             "end_time": window.get("end_time"),
@@ -125,7 +137,13 @@ def save_windows_to_qdrant(
             "metadata": window.get("metadata", {}),
         }
 
-        points.append(PointStruct(id=str(uuid.uuid4()), vector=vector, payload=payload))
+        points.append(
+            PointStruct(
+                id=str(uuid.uuid4()),
+                vector={TEXT_VECTOR_NAME: vector},
+                payload=payload,
+            )
+        )
 
     print(f"Uploading {len(points)} windows to Qdrant...")
     operation_info = qdrant_client.upsert(
@@ -134,6 +152,38 @@ def save_windows_to_qdrant(
         points=points,
     )
     print("Upload complete!", operation_info)
+
+
+def save_drill_image_to_qdrant(
+    source: str, image_path: str, description: str, qdrant_client: QdrantClient
+) -> None:
+    """
+    Saves one drill hole image as a point in the optimized_windows collection, using only
+    the "image" named vector (embedded from the image's text description). The point id is
+    based on the filename, so re-running the import replaces the image instead of duplicating it.
+    """
+    if not description.strip():
+        print(f"No description for {source}, skipping.")
+        return
+
+    embeddings = OpenAIEmbeddings(model=EMBEDDING_MODEL, dimensions=VECTOR_SIZE)
+    vector = embeddings.embed_query(description)
+
+    point = PointStruct(
+        id=str(uuid.uuid5(uuid.NAMESPACE_URL, source)),
+        vector={IMAGE_VECTOR_NAME: vector},
+        payload={
+            "type": "image",
+            "source": source,
+            "image_path": image_path,
+            "content": description,
+        },
+    )
+
+    print(f"Uploading drill image {source} to Qdrant...")
+    qdrant_client.upsert(
+        collection_name=OPTIMIZED_WINDOWS_COLLECTION_NAME, wait=True, points=[point]
+    )
 
 
 def get_all_text_from_qdrant(

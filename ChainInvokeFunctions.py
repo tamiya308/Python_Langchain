@@ -4,7 +4,6 @@ from typing import Any  # Added Optional import here
 from langchain_classic.retrievers import MultiVectorRetriever
 from langchain_classic.storage import InMemoryStore
 from langchain_core.documents import Document
-from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.vectorstores import InMemoryVectorStore
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
@@ -211,30 +210,6 @@ def execute_hole_data_scan(
         return {"error": f"Failed extraction window: {e!s}"}
 
 
-def execute_search_mineral_conversational_output(
-    window_payload: dict[str, Any], model_name: str = "gpt-4o-mini"
-) -> dict[str, Any]:
-    """Extract structured geological attributes from one text window."""
-    prompt = ChatPromptTemplate.from_messages(
-        [
-            ("system", "What is the main rock type found in this drill log?"),
-            ("human", "Log Segment Source: {source}\n\nContent:\n{content}"),
-        ]
-    )
-
-    llm = ChatOpenAI(model=model_name, temperature=0.0)
-    chain = prompt | llm | StrOutputParser()
-
-    try:
-        # print(f"window_payload: {window_payload}\n")
-        result = chain.invoke(
-            {"source": window_payload["source"], "content": window_payload["content"]}
-        )
-        return result
-    except Exception as e:
-        return {"error": f"Failed extraction window: {e!s}"}
-
-
 def execute_search_mineral_structured_output(
     window_payload: dict[str, Any], model_name: str = "gpt-4o-mini"
 ) -> dict[str, Any]:
@@ -305,3 +280,43 @@ def execute_mineral_summary(
     except Exception as e:
         print(f"error: Failed mineral summary for {source}: {e!s} \n")
         return {"hole_id": "Unknown", "source": source, "minerals": []}
+
+
+def execute_drill_image_description(
+    source: str, image_path: str, model_name: str = "gpt-4o-mini"
+) -> str:
+    """Describe one drill hole strip-log image in text, so it can be embedded and searched.
+
+    The images are mostly labels, depths and assay bars, which a text description captures
+    far better than a pixel embedding would.
+    """
+    import base64
+    from langchain_core.messages import HumanMessage, SystemMessage
+
+    with open(image_path, "rb") as f:
+        image_b64 = base64.b64encode(f.read()).decode("utf-8")
+
+    messages = [
+        SystemMessage(
+            "You are an expert exploration geologist. Describe this drill hole strip-log image "
+            "completely: hole id, prospect, collar coordinates, elevation, azimuth/dip, core size, "
+            "total depth, every logged interval (from-to depth and rock type), every assay value "
+            "shown and its depth, and any significant intercept text. Only report what is visible."
+        ),
+        HumanMessage(
+            content=[
+                {"type": "text", "text": f"Image source: {source}"},
+                {
+                    "type": "image_url",
+                    "image_url": {"url": f"data:image/jpeg;base64,{image_b64}"},
+                },
+            ]
+        ),
+    ]
+
+    llm = ChatOpenAI(model=model_name, temperature=0.0)
+    try:
+        return llm.invoke(messages).content
+    except Exception as e:
+        print(f"error: Failed image description for {source}: {e!s} \n")
+        return ""

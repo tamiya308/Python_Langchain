@@ -4,7 +4,7 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from qdrant_client import QdrantClient
 
-from qdrant import OPTIMIZED_WINDOWS_COLLECTION_NAME, EMBEDDING_MODEL, VECTOR_SIZE, get_mineral_summaries
+from qdrant import OPTIMIZED_WINDOWS_COLLECTION_NAME, EMBEDDING_MODEL, TEXT_VECTOR_NAME, VECTOR_SIZE, get_mineral_summaries
 
 load_dotenv()
 
@@ -22,6 +22,7 @@ def retrieve_windows(question: str, top_k: int = TOP_K) -> list[dict]:
     response = client.query_points(
         collection_name=OPTIMIZED_WINDOWS_COLLECTION_NAME,
         query=question_vector,
+        using=TEXT_VECTOR_NAME,  # search the drill log text, not the drill images
         limit=top_k,
         with_payload=True,
     )

@@ -8,11 +8,14 @@ from langchain_core.documents import Document
 from langchain_experimental.text_splitter import SemanticChunker
 from langchain_openai import OpenAIEmbeddings
 
-from ChainInvokeFunctions import execute_mineral_summary
+from ChainInvokeFunctions import execute_drill_image_description, execute_mineral_summary
 from qdrant import (
+    IMAGE_VECTOR_NAME,
     MINERAL_COLLECTION_NAME,
     OPTIMIZED_WINDOWS_COLLECTION_NAME,
+    TEXT_VECTOR_NAME,
     initialize_qdrant_collection,
+    save_drill_image_to_qdrant,
     save_mineral_summary_to_qdrant,
     save_windows_to_qdrant,
 )
@@ -148,7 +151,11 @@ if __name__ == "__main__":
     all_semantic_segments = []
 
     mineralSummary_client = initialize_qdrant_collection(MINERAL_COLLECTION_NAME)
-    qdrant_client = initialize_qdrant_collection(OPTIMIZED_WINDOWS_COLLECTION_NAME)
+    # text windows and drill images share this collection, each under its own named vector
+    qdrant_client = initialize_qdrant_collection(
+        OPTIMIZED_WINDOWS_COLLECTION_NAME,
+        vector_names=[TEXT_VECTOR_NAME, IMAGE_VECTOR_NAME],
+    )
 
     for file_path in target_files:
         print(f"📖 Scanning: {os.path.basename(file_path)}")
@@ -181,5 +188,16 @@ if __name__ == "__main__":
 
         # save to qDrant vector database
         save_windows_to_qdrant(optimized_windows, qdrant_client)
+
+    # Step C: Drill images - describe each strip log with the vision model, then embed the description
+    images_directory = "./Drill Images"
+    image_files = glob.glob(os.path.join(images_directory, "drill_hole_*.jpg"))
+    print(f"\n🖼️ Discovered {len(image_files)} drill images.\n")
+
+    for image_path in image_files:
+        source = os.path.basename(image_path)
+        print(f"🖼️ Describing: {source}")
+        description = execute_drill_image_description(source, image_path)
+        save_drill_image_to_qdrant(source, image_path, description, qdrant_client)
 
     print("\n✅ Execution Finished! Sample Data Extracted:")
