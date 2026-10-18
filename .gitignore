@@ -8,6 +8,9 @@ node_modules/
 venv/
 .venv/
 
+# Python bytecode
+__pycache__/
+
 # Operating system files
 .DS_Store
 Thumbs.db

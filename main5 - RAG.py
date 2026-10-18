@@ -4,7 +4,7 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from qdrant_client import QdrantClient
 
-from qdrant import COLLECTION_NAME, EMBEDDING_MODEL, VECTOR_SIZE, get_mineral_summaries
+from qdrant import OPTIMIZED_WINDOWS_COLLECTION_NAME, EMBEDDING_MODEL, VECTOR_SIZE, get_mineral_summaries
 
 load_dotenv()
 
@@ -20,7 +20,7 @@ def retrieve_windows(question: str, top_k: int = TOP_K) -> list[dict]:
 
     client = QdrantClient(host="localhost", port=6333)
     response = client.query_points(
-        collection_name=COLLECTION_NAME,
+        collection_name=OPTIMIZED_WINDOWS_COLLECTION_NAME,
         query=question_vector,
         limit=top_k,
         with_payload=True,
@@ -126,7 +126,7 @@ if __name__ == "__main__":
     windows = retrieve_windows(question)
     if not windows:
         raise ValueError(
-            f"No data found in '{COLLECTION_NAME}'. Run 'main2 - import.py' first."
+            f"No data found in '{OPTIMIZED_WINDOWS_COLLECTION_NAME}'. Run 'main2 - import.py' first."
         )
 
     print(f"\n🔎 Retrieved {len(windows)} closest windows:")

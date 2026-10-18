@@ -11,6 +11,7 @@ from langchain_openai import OpenAIEmbeddings
 from ChainInvokeFunctions import execute_mineral_summary
 from qdrant import (
     MINERAL_COLLECTION_NAME,
+    OPTIMIZED_WINDOWS_COLLECTION_NAME,
     initialize_qdrant_collection,
     save_mineral_summary_to_qdrant,
     save_windows_to_qdrant,
@@ -147,7 +148,7 @@ if __name__ == "__main__":
     all_semantic_segments = []
 
     mineralSummary_client = initialize_qdrant_collection(MINERAL_COLLECTION_NAME)
-    qdrant_client = initialize_qdrant_collection()
+    qdrant_client = initialize_qdrant_collection(OPTIMIZED_WINDOWS_COLLECTION_NAME)
 
     for file_path in target_files:
         print(f"📖 Scanning: {os.path.basename(file_path)}")
