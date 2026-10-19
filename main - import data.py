@@ -8,7 +8,10 @@ from langchain_core.documents import Document
 from langchain_experimental.text_splitter import SemanticChunker
 from langchain_openai import OpenAIEmbeddings
 
-from ChainInvokeFunctions import execute_drill_image_description, execute_mineral_summary
+from ChainInvokeFunctions import (
+    execute_drill_image_description,
+    execute_mineral_summary,
+)
 from qdrant import (
     IMAGE_VECTOR_NAME,
     MINERAL_COLLECTION_NAME,
@@ -85,7 +88,10 @@ def build_dynamic_sliding_windows(
         # Close the active window when this chunk won't fit. A chunk longer than
         # max_window_tokens is never split: it closes the active window first (so windows
         # stay in log order) and then gets a window of its own, with the usual overlap.
-        if current_window_docs and current_window_tokens + doc_tokens > max_window_tokens:
+        if (
+            current_window_docs
+            and current_window_tokens + doc_tokens > max_window_tokens
+        ):
             close_window()
 
             # Slide window back by applying overlap to retain continuity
