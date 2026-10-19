@@ -1,9 +1,17 @@
+import os
 import uuid
 from typing import Any
 
+from dotenv import load_dotenv
 from langchain_openai import OpenAIEmbeddings
 from qdrant_client import QdrantClient
 from qdrant_client.models import Distance, PointStruct, VectorParams
+
+load_dotenv()
+
+# Qdrant connection, read from .env (falls back to a local Qdrant on the default port)
+QDRANT_HOST = os.getenv("QDRANT_HOST", "localhost")
+QDRANT_PORT = int(os.getenv("QDRANT_PORT", "6333"))
 
 OPTIMIZED_WINDOWS_COLLECTION_NAME = "optimized_windows"
 MINERAL_COLLECTION_NAME = "mineral_summary"
@@ -13,6 +21,11 @@ EMBEDDING_MODEL = "text-embedding-3-small"
 # named vectors inside the optimized_windows collection
 TEXT_VECTOR_NAME = "text"  # drill log text windows
 IMAGE_VECTOR_NAME = "image"  # drill hole strip-log images (embedded from their description)
+
+
+def get_qdrant_client() -> QdrantClient:
+    """Connects to the Qdrant instance set by QDRANT_HOST / QDRANT_PORT in .env."""
+    return QdrantClient(host=QDRANT_HOST, port=QDRANT_PORT)
 
 
 def initialize_qdrant_collection(
@@ -26,7 +39,7 @@ def initialize_qdrant_collection(
     Pass vector_names to create one named vector per name (e.g. "text" and "image");
     otherwise the collection has a single unnamed vector.
     """
-    qdrant_client = QdrantClient(host="localhost", port=6333)
+    qdrant_client = get_qdrant_client()
 
     if qdrant_client.collection_exists(collection_name=collection_name):
         print(f"Collection '{collection_name}' exists. Deleting it and all its points...")
@@ -75,9 +88,9 @@ def save_mineral_summary_to_qdrant(
     )
 
 
-def get_mineral_summaries(host="localhost", port=6333) -> list[dict[str, Any]]:
+def get_mineral_summaries() -> list[dict[str, Any]]:
     """Returns every drill hole's mineral summary (one record per hole)."""
-    client = QdrantClient(host=host, port=port)
+    client = get_qdrant_client()
     if not client.collection_exists(collection_name=MINERAL_COLLECTION_NAME):
         return []
 

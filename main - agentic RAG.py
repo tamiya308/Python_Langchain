@@ -2,7 +2,6 @@ from dotenv import load_dotenv
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_core.tools import tool
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
-from qdrant_client import QdrantClient
 
 from qdrant import (
     EMBEDDING_MODEL,
@@ -11,6 +10,7 @@ from qdrant import (
     TEXT_VECTOR_NAME,
     VECTOR_SIZE,
     get_mineral_summaries,
+    get_qdrant_client,
 )
 
 load_dotenv()
@@ -26,7 +26,7 @@ def retrieve_windows(question: str, top_k: int = TOP_K) -> list[dict]:
     embeddings = OpenAIEmbeddings(model=EMBEDDING_MODEL, dimensions=VECTOR_SIZE)
     question_vector = embeddings.embed_query(question)
 
-    client = QdrantClient(host="localhost", port=6333)
+    client = get_qdrant_client()
     response = client.query_points(
         collection_name=OPTIMIZED_WINDOWS_COLLECTION_NAME,
         query=question_vector,
