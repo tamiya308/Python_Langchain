@@ -13,14 +13,16 @@ load_dotenv()
 QDRANT_HOST = os.getenv("QDRANT_HOST", "localhost")
 QDRANT_PORT = int(os.getenv("QDRANT_PORT", "6333"))
 
-OPTIMIZED_WINDOWS_COLLECTION_NAME = "optimized_windows"
-MINERAL_COLLECTION_NAME = "mineral_summary"
+OPTIMIZED_WINDOWS_COLLECTION_NAME = "drill_log_optimized_windows"
+MINERAL_COLLECTION_NAME = "drill_log_mineral_summary"
 VECTOR_SIZE = 384
 EMBEDDING_MODEL = "text-embedding-3-small"
 
 # named vectors inside the optimized_windows collection
 TEXT_VECTOR_NAME = "text"  # drill log text windows
-IMAGE_VECTOR_NAME = "image"  # drill hole strip-log images (embedded from their description)
+IMAGE_VECTOR_NAME = (
+    "image"  # drill hole strip-log images (embedded from their description)
+)
 
 
 def get_qdrant_client() -> QdrantClient:
@@ -42,7 +44,9 @@ def initialize_qdrant_collection(
     qdrant_client = get_qdrant_client()
 
     if qdrant_client.collection_exists(collection_name=collection_name):
-        print(f"Collection '{collection_name}' exists. Deleting it and all its points...")
+        print(
+            f"Collection '{collection_name}' exists. Deleting it and all its points..."
+        )
         qdrant_client.delete_collection(collection_name=collection_name)
 
     # recreating also picks up any change to VECTOR_SIZE
@@ -82,7 +86,6 @@ def save_mineral_summary_to_qdrant(
         payload=hole_summary,
     )
 
-    print(f"Uploading mineral summary for {hole_summary['source']} to Qdrant...")
     qdrant_client.upsert(
         collection_name=MINERAL_COLLECTION_NAME, wait=True, points=[point]
     )

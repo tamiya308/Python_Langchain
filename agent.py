@@ -131,10 +131,12 @@ SYSTEM_PROMPT = (
 )
 
 
-def run_agent(question: str) -> str:
-    """The agent loop: the LLM picks tools, we run them, feed results back, repeat until it answers."""
+def run_agent(question: str) -> dict:
+    """The agent loop: the LLM picks tools, we run them, feed results back, repeat until it answers.
+    Returns the answer plus the tool calls made along the way."""
     llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.0).bind_tools(list(TOOLS.values()))
     messages = [SystemMessage(SYSTEM_PROMPT), HumanMessage(question)]
+    steps = []
 
     for step in range(1, MAX_STEPS + 1):
         ai_message = llm.invoke(messages)
@@ -142,23 +144,13 @@ def run_agent(question: str) -> str:
 
         # no tool calls means the LLM has decided it has enough information to answer
         if not ai_message.tool_calls:
-            return ai_message.content
+            return {"answer": ai_message.content, "steps": steps}
 
         for call in ai_message.tool_calls:
             args = ", ".join(f"{k}={v!r}" for k, v in call["args"].items())
             print(f"🛠️  Step {step}: {call['name']}({args})")
+            steps.append({"step": step, "tool": call["name"], "args": call["args"]})
             # invoking a tool with the tool-call dict returns a ToolMessage linked to that call
             messages.append(TOOLS[call["name"]].invoke(call))
 
-    return f"Stopped after {MAX_STEPS} steps without a final answer."
-
-
-if __name__ == "__main__":
-    question = input("Ask a question about the drill logs: ").strip()
-    if not question:
-        raise ValueError("The question cannot be empty.")
-
-    print()
-    answer = run_agent(question)
-    print("\n💬 Answer:")
-    print(answer)
+    return {"answer": f"Stopped after {MAX_STEPS} steps without a final answer.", "steps": steps}

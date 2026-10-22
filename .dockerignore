@@ -1,0 +1,19 @@
+# secrets: never bake these into the image
+.env
+*.env
+commands used.txt
+openAi Api settings.txt
+
+# local tooling / build junk
+venv/
+.venv/
+__pycache__/
+*.pyc
+.git/
+.idea/
+
+# data is mounted at runtime by docker-compose, not copied in
+Drill Logs/
+Drill Images/
+Extra Data/
+Output/

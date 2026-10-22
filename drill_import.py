@@ -120,16 +120,20 @@ def build_dynamic_sliding_windows(
     return windows
 
 
-if __name__ == "__main__":
-    # Point this to your directory where files are stored (e.g. current path)
-    log_files_directory = "./Drill Logs"
+def run_import(
+    log_files_directory: str = "./Drill Logs", images_directory: str = "./Drill Images"
+) -> dict[str, Any]:
+    """
+    Rebuilds both Qdrant collections from the drill logs and drill images.
+    WARNING: the collections are deleted and recreated first, so any existing data is lost.
+    """
     target_files = glob.glob(os.path.join(log_files_directory, "drill_hole_*.txt"))
 
     print(f"📦 Discovered {len(target_files)} target log files for analysis.\n")
 
-    all_extracted_insights = []
-    all_parent_documents = []
-    all_semantic_segments = []
+    imported_logs = []
+    imported_images = []
+    skipped_images = []
 
     mineralSummary_client = initialize_qdrant_collection(MINERAL_COLLECTION_NAME)
     # text windows and drill images share this collection, each under its own named vector
@@ -143,19 +147,16 @@ if __name__ == "__main__":
 
         # Keep the complete file as the parent; use its semantic segments downstream.
         parent_document = load_drill_log_document(file_path)
-        all_parent_documents.append(parent_document)
 
         # Step A: Mineral summary - scan the WHOLE file so no samples are missed
         hole_summary = execute_mineral_summary(
             parent_document.metadata["source"], parent_document.page_content
         )
-        print(f"   ├─ Found {len(hole_summary['minerals'])} mineral occurrences.")
 
-        # save one summary per drill hole to Qdrant, so "main6 - agentic RAG.py" can compare every hole
+        # save one summary per drill hole to Qdrant, so the agent (agent.py) can compare every hole
         save_mineral_summary_to_qdrant(hole_summary, mineralSummary_client)
 
         semantic_segments = semantic_chunk_document(parent_document)
-        all_semantic_segments.extend(semantic_segments)
 
         # Step B: Dynamic Window grouping (ensures text fits target token boundaries safely)
         optimized_windows = build_dynamic_sliding_windows(
@@ -170,8 +171,16 @@ if __name__ == "__main__":
         # save to qDrant vector database
         save_windows_to_qdrant(optimized_windows, qdrant_client)
 
+        imported_logs.append(
+            {
+                "source": parent_document.metadata["source"],
+                "mineral_occurrences": len(hole_summary["minerals"]),
+                "semantic_segments": len(semantic_segments),
+                "windows": len(optimized_windows),
+            }
+        )
+
     # Step C: Drill images - describe each strip log with the vision model, then embed the description
-    images_directory = "./Drill Images"
     image_files = glob.glob(os.path.join(images_directory, "drill_hole_*.jpg"))
     print(f"\n🖼️ Discovered {len(image_files)} drill images.\n")
 
@@ -183,10 +192,18 @@ if __name__ == "__main__":
         source = os.path.basename(image_path)
         if os.path.splitext(source)[0] not in logged_holes:
             print(f"⏭️ Skipping {source}: no matching drill log.")
+            skipped_images.append(source)
             continue
 
         print(f"🖼️ Describing: {source}")
         description = execute_drill_image_description(source, image_path)
         save_drill_image_to_qdrant(source, image_path, description, qdrant_client)
+        imported_images.append(source)
 
-    print("\n✅ Execution Finished! Sample Data Extracted:")
+    print("\n✅ Import finished!")
+
+    return {
+        "logs": imported_logs,
+        "images": imported_images,
+        "skipped_images": skipped_images,
+    }
